@@ -1,0 +1,36 @@
+Timesheets
+
+Generate Invoice Data
+
+Date Range
+Client
+Select Jobs
+(select all)
+
+Granularity
+each Session
+each Day
+each Job
+whole Range
+
+Fractional Hours
+fraction y/n
+min/ 1/8  1/6 1/5 1/4 1/3 1/2 hour
+rounding y/n
+	nearest increment
+		exact half round up/down
+	floor
+	ceiling
+	based on
+		each punch
+		each day
+		each Job
+		whole Range
+
+I'm creating a punchclock/timesheet web app initially for my own use, then to distribute to others. I will have a section where users can edit punches (like if they forgot to punch out until later and need to edit the end time). I have a question that might be ethical or it might be meaningless.
+
+The software will register the time at punch in and punch out. The user can generate various reports based on the data, and output data in text form that they can cut and paste into invoice documents. Since it will be text, they can edit it to their heart's contentA Punch Session includes bot the in and out time. I can make the software detect if an edit to an in or out time in a Punch Session would make the session overlap in time with another punch session and require the user to select a time that would not conflict with another existing Punch Session.
+
+I can't decide whether I should add this restriction, or if it's fine to have punches that overlap in time. On the one hand, this is for an individual's timekeeping purposes and it seems fussy to try to impose a restriction like that.
+
+On the other hand, if a user ever had a situation where the data was required to be audited, it could seem suspect if there were multiple punch sessions occupying the same time. 

@@ -1,0 +1,169 @@
+[Punch] [Client Management] [Punch Edit] [Timesheets]
+========================================
+Punch
+-------------------
+Interface:Punch In
+Punch Out
+Change Jobs
+ __________
+| Punch In |
+ ''''''''''
+ __________
+|  Change  |
+ ''''''''''
+ ___________
+| Punch Out |
+ '''''''''''
+
+Client: [^ Client List] [Add New]
+Job: [^ Job List] [Add New]
+
+
+Functionality:
+Starts session
+In: Gets current universal time
+Assigns client (default - default client if set, no client otherwise)
+	get Client list.
+	If "New", enable Add New field
+	If "New" changes, disable Add New field
+Assigns job (default - no job
+	On Client select, get Job list
+	If "New" enable Add New field
+	If "New" changes, disable Add New field
+Takes description (optional)
+Adds to DB
+Sets flag "In"
+Enables Out/Change buttons
+Disables "In" button
+Start Timer
+
+Out:
+Closes session
+Gets universal time
+If no description in db, promots to add (optional)
+Adds to db
+Sets flag "out"
+Enables "in", disables "Change", "Out" buttons
+
+
+Change:
+Closes session
+Gets universal time
+adds to db
+Starts session
+Assigns client (default - default client if set, no client otherwise)
+	get Client list.
+	If "New", enable Add New field
+	If "New" changes, disable Add New field
+Assigns job (default - no job
+	On Client select, get Job list
+	If "New" enable Add New field
+	If "New" changes, disable Add New field
+Takes description (optional)
+Adds to db
+Does not set flag
+
+Client:
+Select/add new
+
+Job:
+Select/add new
+
+Decription:
+Free text
+
+
+Punch table
+Session ID	Client		Job	In Time		Out time 	Running		Description	Archived	Billed
+data		table		table	data		data		data		data		data		data
+
+Client table
+ID	Client
+data	data
+
+Job table
+ID	Job 	Client
+data	data	table
+
+-------------------
+Client Management
+-------------------
+
+Add Client
+[Free Text]
+
+[^ Select Client]
+ _______________   
+[ Rename Client ]
+
+On press, enable text field with name populated
+Enable save/cancel
+
+If client is not Archived,
+ ________________
+[ Archive Client ]
+
+On press prompt:
+"This will keep the client and associated jobs in the database,
+but remove them from the Punch list."
+	 _________
+	[ Archive ]
+
+	On press, set Archived flag on
+	 ______
+	[Cancel]
+
+Else
+ __________________
+[ Un-Archive Client]
+
+On press prompt:
+"This will restore the client to the active client list in Punch."
+	 ____________
+	[ Un-Archive ]
+
+	On press, set Archived flag off
+	 ________
+	[ Cancel ]
+
+ _____________
+[ Manage Jobs ]
+
+	[^ Select Job ]
+	 ____________   
+	[ Rename Job ]
+
+	On press, enable text field with name populated
+		 ______
+		[ Save ]
+
+		On Press, save new data to database
+		 ________
+		[ Cancel ]
+
+	If job is not Archived,
+	 _____________
+	[ Archive Job ]
+
+	On press prompt:
+	"This will keep the client and associated jobs in the database,
+	but remove them from the Punch list."
+		 _________
+		[ Archive ]
+
+		On press, set Archived flag on
+		 ______
+		[Cancel]
+
+	Else
+	 __________________
+	[ Un-Archive Client]
+
+	On press prompt:
+	"This will restore the client to the active client list in Punch."
+		 ____________
+		[ Un-Archive ]
+
+		On press, set Archived flag off
+		 ________
+		[ Cancel ]

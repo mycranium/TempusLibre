@@ -1,0 +1,25 @@
+Punch Edit
+
+Select punch
+
+Date Range to show
+By Client (Show: All | Active | Archived)
+By Job (Show: All | Active | Archived)
+By Date
+Description contains:
+Unusually long session
+
+(set length threshhold for unusually long sessions)
+
+Show list:
+Date (select new)
+Client (Reassign from list)
+Job (Reassign from list)
+In (edit)
+Out (edit)
+Duration (edit) (change in/out/both(ratio))
+Description (edit)
+Archive/Unarchive
+Billed
+Edit (Save | Cancel)
+On Save, check to see if it conflicts with previous or next punch. If so, alert details)
