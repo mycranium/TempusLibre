@@ -1,5 +1,6 @@
 # punchcard
-Web app for quick time tracking
+Punchcard is a web app for quick time tracking
+
 This is a web app with a Javascript-based front-end and a (probably) PHP-based backend that will allow users to track in and out times quickly without requiring lengthy client or job setups before use.
 
 It will provide the capability to edit punches to adjust in and out times and durations, as well as assign or reassign punches to different jobs and clients. Users will be able to optionally select and create clients and jobs from the punch screen.
