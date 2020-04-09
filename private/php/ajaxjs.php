@@ -5,10 +5,10 @@ $email2 = $_POST['email1'];
 $password2 = $_POST['password1'];
 $contact2 = $_POST['contact1'];
 
-$servername = "localhost";
-$username = "root";
-$password = "SumS4t1t,y";
-$dbname = "mydba";
+$servername = "";
+$username = "";
+$password = "";
+$dbname = "";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
