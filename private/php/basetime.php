@@ -4,10 +4,10 @@ $myTrig = $_POST['myTrig'];
 $pTime = $_POST['pTime'];
 
 // Server credentials for mySQL
-$servername = "localhost";
-$username = "root";
-$password = "SumS4t1t,y";
-$dbname = "datescratch";
+$servername = "";
+$username = "";
+$password = "";
+$dbname = "";
 
 // What to do depending on whether this is a punch IN or another kind
 if ($myTrig == "in") {
