@@ -1,0 +1,99 @@
+@media (max-width:640px)/* and (orientation: portrait)*/ {
+  
+  ul.punchPod {
+    list-style-type: none;
+    clear: both;
+    padding: 0px;
+    width: 94%;
+    margin: .5em auto;
+    padding-top: 3px;
+  }
+  ul.punchPod {
+    border: 1px solid white;
+    background-color: rgba(255,255,255,.5);
+    color: black;
+    border-radius: 10px;
+  }
+  
+  ul.punchPod:after { content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .punchPod li {
+    display: inline-block;
+    float:left;
+    line-height: 1.2em;
+  }
+  .col1, .col3 {
+    padding-left: .25em;
+  }
+  .col2, .col5, .col6 {
+    padding-left: .5em;
+  }
+  .col7, .col8, .col9 {
+    background-color: rgba(60,0,100,.5);
+    color: white;
+    width: 100%;
+    padding-left: 8px;
+  }
+  /*  , .col4:after, .col5:after
+  }*/
+.col0 {
+  padding-left: 8px;
+}
+  .col0:after, .col2:after {
+    content: ", ";
+  }
+  .col0:before {
+    content: "In: ";
+    font-weight: bold;
+  }
+   .col2:before {
+    content: "Out: ";
+    font-weight: bold;
+  }
+  .col4 {
+    clear:left;
+  padding-left: 8px;
+  }
+  .col4:before {
+    content: "Duration - H:M: ";
+    font-weight: bold;
+  }
+  .col5:before {
+    content: "Min: ";
+    font-weight: bold;
+  }
+  .col9, .col7, .col8 {
+    clear: left;
+  }
+  .col6:before {
+    content: "Status: ";
+    font-weight: bold;
+  }
+  .col7:before {
+    content: "Client: ";
+    font-weight: bold;
+  }
+.col7 {
+  padding-top: 3px;
+  margin-top: 2px;
+}
+  .col8:before {
+    content: "Project: ";
+    font-weight: bold;
+  }
+.col9 {
+  border-radius: 0 0 10px 10px;
+  padding-bottom: 4px;
+}
+  .col9:before {
+    content: "Job: ";
+    font-weight: bold;
+  }
+  
+  
+  
+}
+

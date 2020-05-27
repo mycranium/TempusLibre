@@ -1,0 +1,342 @@
+@charset "utf-8";
+/* CSS Document */
+/* True ALWAYS unless overridden by media queries */
+* {
+  box-sizing: border-box;
+  font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+html {
+  height: 100%;
+  width: 100%;
+  font-size: 62.5%;
+}
+body {
+  color: white;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 3em 0;
+}
+a {
+  color:white;
+text-decoration: none;}
+@media (max-width: 640px) { /* True ONLY and ALWAYS up to 640 */
+  section.tablesec {
+    display: none;
+  }
+  ul {
+    font-size: 1.6rem;
+  }
+  #displayControls {
+    display: block;
+    width: 94%;
+    margin: 10px auto;
+    align-content: center;
+    font-size: 1.7rem;
+  }
+  #displayControls div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; /*flex-start;*/
+    align-content: center;
+    margin: .7em 0;
+  }
+  #displayButtons {
+    width: 100%;
+  }
+  #sortControls {
+    width: 70.5%;
+  }
+  #displayButtons h2, #sortControls h2 {
+    display: inline-block;
+    font-size: 1em;
+    margin-right: .7em;
+    line-height: 1.5em;
+    padding: 0;
+    flex: 1 1 0;
+    white-space: nowrap;
+  }
+  .button {
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    word-break: normal;
+    display: inline-block;
+    width: auto;
+    height: auto;
+  }
+  #displayButtons .button {
+    border: 0;
+    border-radius: 0.25em;
+    background: #336;
+    color: white;
+    font-size: .8em;
+    line-height: 1.7em;
+    padding: 0 .8em;
+    margin: 0 .7em 0 0;
+    flex: 1 1 auto;
+  }
+  #sortControls .button {
+    border: 0;
+    border-radius: 0.88em;
+    background: #633;
+    color: white;
+    font-size: .8em;
+    line-height: 1.4em;
+    padding: 0 .8em;
+    margin: 0 .7em 0 0;
+    flex: 1 1 auto;
+  }
+  #displayButtons .button:last-child, #sortControls .button:last-child {
+    margin-right: 0;
+  }
+}
+@media (min-width: 640px) and (max-width: 1024px) { /* True ONLY and ALWAYS between 640 and 1024 */
+  /* Headings */
+  h1, h2, h3 {
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 2em;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+  h2 {
+    font-size: 1.2em;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+  }
+  h3 {
+    font-size: 1.1em; /*
+    color: white;*/
+    margin: 0;
+    padding-left: 16px;
+  }
+  /* Header */
+  header {
+    background-color: rgba(0, 0, 0, .4);
+    margin: 0;
+    padding: 8px;
+  }
+  header h1, header h2 {
+    color: white;
+    text-align: center;
+  }
+  header h1 {
+    font-variant: small-caps;
+    letter-spacing: .17em;
+    line-height: 1em;
+  }
+  main {
+    padding: 0;
+  }
+  footer {
+    color: white;
+    padding-left: 16px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .25);
+    text-align: center;
+  }
+  footer p {
+    display: inline-block;
+  }
+  .cssSwitch {
+    display: inline-block;
+  }
+  footer .cssBtn {
+    display: inline-block;
+  }
+  .cssBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
+    margin: 18px auto;
+    align-content: center;
+  }
+}
+@media (max-width: 750px) { /* True ONLY and ALWAYS up to 750 */
+  #punchTable th, #punchTable td {
+    font-size: 12px;
+  }
+}
+@media (min-width: 750px) and (max-width: 1024px) { /* True ONLY and ALWAYS between 750 and 1024*/
+  #punchTable th, #punchTable td {
+    font-size: 15px;
+  }
+}
+@media (min-width: 640px) { /* True always after 640 */
+  #aspectAlert {
+    display: none;
+  }
+  .sepList {
+    display: none;
+  }
+  /* Punch Display Controls Section */
+  #displayControls {
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 94%;
+    margin: 10px auto;
+    align-content: center;
+  }
+  #displayControls div {
+    display: flex;
+    flex-direction: row;
+  }
+  #displayButtons {
+    
+    justify-content: space-around;
+    
+  }
+  #sortControls {
+    
+    justify-content: flex-end;
+  }
+  #displayButtons h2, #sortControls h2 {
+    font-size: 1em;
+    display: inline-block;
+    margin:0;
+    line-height: 1.7em;
+    white-space: nowrap;
+  }
+  #sortControls h2 {
+    margin-left:1em;
+  }
+  #displayButtons {
+    flex: 3 3 auto;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  #sortControls {
+    justify-content: flex-end;
+    flex: 2 2 auto;
+    align-items: center;
+  }
+  #sortControls .button:last-child {
+    margin-left: 10px;
+  }
+
+  .button {
+    border: 0;
+    border-radius: 0.25em;
+    background: #1E88E5;
+    color: white;
+    font-size: 1em;
+    line-height: 1.7em;
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 0 0.6em;
+    margin: 0 0 0 .8em;
+    cursor: pointer;
+    word-break: normal;
+    width: auto;
+    height: auto;
+  }
+  /* table and children */
+  section.tablesec {
+    display: block;
+  }
+  .displayTable { /* div containing table */
+    width: 94%;
+    margin: 0 auto;
+  }
+  table, caption, tbody, tfoot, thead, tr, th, td {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: middle;
+  }
+  table {
+    display: table;
+    width: 100%;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+  }
+  td {
+    border: 1px solid #555;
+    padding: 3px 6px;
+  }
+  th {
+    border-top: 1px solid #555;
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    padding: 1px 6px;
+  }
+  thead {
+    font-weight: bold;
+    background-color: #555;
+    color: white;
+  }
+  thead th:first-child {
+    border-top: 1px solid #555;
+    border-left: 1px solid #555;
+  }
+  thead th:last-child {
+    border-top: 1px solid #555;
+    border-right: 1px solid #555;
+  }
+  tbody {
+    border-bottom: 4px solid #555
+  }
+  tbody tr:nth-child(even) {
+    background: #eee;
+  }
+}
+@media (min-width: 1024px) { /* True only & always after 1024 */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  #punchTable th, #punchTable td {
+    font-size: 17px;
+  }
+}
+@media (max-width: 1024px) { /* True only & always below 1024 */
+  #aspectAlert {
+    display: none;
+  }
+  h1, h2, h3 {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    font-size: 2em;
+    display: inline-block;
+  }
+  h2 {
+    font-size: 1.2em;
+    display: inline-block;
+  }
+  h3 {
+    font-size: 1.1em;
+    color: white;
+    padding-left: 16px;
+  }
+  header {
+    background-color: rgba(0, 0, 0, .4);
+    margin: 0;
+    padding: 8px;
+  }
+  header h1, header h2 {
+    color: white;
+    text-align: center;
+  }
+  header h1 {
+    font-variant: small-caps;
+    letter-spacing: .17em;
+    line-height: 1em;
+  }
+}

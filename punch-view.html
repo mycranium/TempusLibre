@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Punch View</title>
+<link rel="stylesheet" type="text/css" href="css/punch-view.css" >
+<link rel="stylesheet" type="text/css" href="css/ul-pod.css" >
+<link rel="stylesheet" type="text/css" title="lilac" href="css/lilac.css" >
+<link rel="stylesheet" type="text/css" title="space" href="css/space.css" >
+<link rel="stylesheet" type="text/css" title="candy" href="css/candy.css" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="private/js/punch-view.js" defer></script> 
+<script src="private/js/style_switch.js" defer></script>
+</head>
+<body class="grad1">
+<header>
+  <h1><a href="https://tempuslibre.io/Local_Storage.html">TempusLibre</a></h1>
+  <h2>Simple Time Tracking</h2>
+</header>
+<main>
+  <p id="aspectAlert">Best viewed in landscape orientation (turn your device sideways).</p>
+  <div class="" id="displayContainer">
+    <div class="" id="displayControls">
+      <div id="displayButtons">
+        <h2>Display: </h2>
+        <button class="button" type="button" id="viewLatest" name="viewLatest">Latest Punch</button><!--
+        --><button class="button" type="button" id="viewAll" name="viewAll">All Punches</button><!--
+        --><button class="button" type="button" id="clearDisplay" name="clearDisplay">Clear Display</button>
+      </div>
+      <div id="sortControls">
+        <h2>Sort By: </h2>
+        <button class="button" type="button" id="sortDate" name="sortDate">Date <span id="dateOrder">Asc</span></button><!--
+        --><button class="button" type="button" id="sortClient" name="sortClient">Client <span id="clientOrder">Asc</span></button>
+      </div>
+    </div>
+    <section class="tablesec">
+      <div class="displayTable">
+        <table id="punchTable">
+          <thead>
+            <tr>
+              <th rowspan="2">Date In</th>
+              <th rowspan="2">Time In</th>
+              <th rowspan="2">Date Out</th>
+              <th rowspan="2">Time Out</th>
+              <th colspan="2">Duration</th>
+              <th rowspan="2">Client</th>
+              <th rowspan="2">Project</th>
+              <th rowspan="2">Job</th>
+              <th rowspan="2">Status</th>
+            </tr>
+            <tr>
+              <th>H:M</th>
+              <th>Min.</th>
+            </tr>
+          </thead>
+          <tbody id="tableContainer">
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="sepList" id="listContainer">
+    </section>
+  </div>
+  <div class="row">  
+    <div id="devContainer" class="msgContainer">
+      <input type="button" name="hideDev" id="hideDev" class="nrmlBtn" value="Hide">
+      <h3>Developer Messages</h3>
+      <p id="devMessage"></p>
+    </div>
+    <div id="userContainer" class="msgContainer">
+      <input type="button" name="hideUsr" id="hideUsr" class="nrmlBtn" value="Hide">
+      <h3>User Messages</h3>
+      <p id="userMessage"></p>
+    </div>  
+  </div>
+</main>
+<footer>
+  <p>Page by Mike Rainey for Tempus Libre</p>
+  <div class="cssSwitch">
+    <div class="cssBtns">
+      <input type="button" name="changeStyle1" id="lilac" class="cssBtn" onClick="switch_style('lilac')" value="Lilac">
+      <input type="button" name="changeStyle2" id="space" class="cssBtn" onClick="switch_style('space')" value="Space">
+      <input type="button" name="changeStyle3" id="candy" class="cssBtn" onClick="switch_style('candy')" value="Candy">
+    </div>
+  </div>
+</footer>
+</body>
+</html>
