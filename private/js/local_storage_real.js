@@ -1,115 +1,129 @@
 // JavaScript Document
 // Set up interface elements
-var infc = {
-inBtn: document.querySelector('#punchIn'),
-outBtn: document.querySelector('#punchOut'),
-changeBtn: document.querySelector('#punchChange'),
-assignBtn: document.querySelector('#assign'),
-initBtn: document.querySelector('#init'),
-saveBtn: document.querySelector('#save'),
-displayBtn: document.querySelector('#display'),
-hideDevBtn: document.querySelector('#hideDev'),
-hideUsrBtn: document.querySelector('#hideUsr'),
-clientTxt: document.querySelector('#client'),
-projectTxt: document.querySelector('#project'),
-jobTxt: document.querySelector('#job'),
-inDtLi: document.querySelector('#inDateDisplay'),
-inTmLi: document.querySelector('#inTimeDisplay'),
-clientLi: document.querySelector('#clientDisplay'),
-projectLi: document.querySelector('#projectDisplay'),
-jobLi: document.querySelector('#jobDisplay'),
-statusLi: document.querySelector('#statusDisplay'),
-results: document.querySelector('#results'),
-devBox: document.querySelector('#devContainer'),
-devMsg: document.querySelector('#devMessage'),
-userBox: document.querySelector('#userContainer'),
-userMsg: document.querySelector('#userMessage'),
+var pio = {
+  inBtn: document.getElementById('punchIn'),
+  outBtn: document.getElementById('punchOut'),
+  changeBtn: document.getElementById('punchChange'),
+  assignBtn: document.getElementById('assign'),
+  clientTxt: document.getElementById('client'),
+  projectTxt: document.getElementById('project'),
+  jobTxt: document.getElementById('job'),
+  inDtLi: document.getElementById('inDateDisplay'),
+  inTmLi: document.getElementById('inTimeDisplay'),
+  clientLi: document.getElementById('clientDisplay'),
+  projectLi: document.getElementById('projectDisplay'),
+  jobLi: document.getElementById('jobDisplay'),
+  statusLi: document.getElementById('statusDisplay'),
+  results: document.getElementById('results'),
+  alertContainers: [document.getElementById("clipAlert"), document.getElementById("alertText")]
 };
 
-var devMsgOn = false;
-var usrMsgOn = true;
+document.body.onload = setupPunchPage(); // Initialize page on load, without clearing localStorage
 
-document.body.onload = setupPage(); // Initialize page on load, without clearing localStorage
-
-function setupPage() { //Set up the page based oon conditions
-  var isStored = (localStorage.length > 0) ? true : false; // Check LocalStorage length.
+function setupPunchPage() { //Set up the page based oon conditions
+  var isStored = (localStorage.hasOwnProperty('punches')) ? true : false; // Check if LocalStorage has 'punches' item.
   if (!isStored) { // If empty, alert no stored punches, freshSetup. punchArray =[]
-    setDisplayMsg("user", "There are no stored punches.");
-    setupInterface("ready", isStored, 0);
+    if (msgObject.dev) displayAlert(msgObject["noPunchesMsg"], false, pio.alertContainers);
+    setupInterface("ready", 0);
     updateStatus("ready");
   } else { //If true, retrieve and covert to punchArray.
     let workArray = getStoredPunches();
-    let lastPunch = checkMultipleOpenPunch(workArray);//[workArray.length - 1];
+    if (!workArray) {
+      if (msgObject.dev) displayAlert(msgObject["noValidMsg"], false, pio.alertContainers);
+      return false;
+    }
+    let lastPunch = checkMultipleOpenPunch(workArray); //[workArray.length - 1];
     if (typeof lastPunch != 'object') {
-      alert("dev", "The selected data is not an object.");
+      if (msgObject.dev) displayAlert(msgObject["wrongData"], false, pio.alertContainers);
       return;
     } else {
       let pStat = lastPunch.status;
       if (pStat == "In") {
-        setDisplayMsg("user", "You are punched IN");
-        setupInterface("in", isStored, lastPunch);
+        displayAlert(msgObject["punchStatus"], true, pio.alertContainers);
+        setupInterface("in", lastPunch);
         updateStatus("in", lastPunch);
       } else {
-        setDisplayMsg("user", "You are punched OUT");
-        setupInterface("out", isStored, lastPunch);
+        displayAlert(msgObject["punchStatus"], false, pio.alertContainers);
+        setupInterface("out", lastPunch);
         updateStatus("out", lastPunch);
       }
-    }    
+    }
   }
 }
 
-function setupInterface(state, stored, punch) {
+function getStoredPunches() { // called from setupPage line 30
+  if (localStorage.hasOwnProperty('punches')) { // See if localStorage has any punches
+    let workArray = JSON.parse(localStorage.getItem('punches')); // If yes, get and parse
+    if (typeof workArray == 'object' && workArray.length > 0) { // If parsed data is an object and there are more than 0 entries
+      if (workArray[workArray.length - 1].hasOwnProperty('punchId')) { // If the latest object has a PunchId property
+        return workArray; // Data is as expected. Retun the array of punch objects.
+      } else { // If the object doesn't have the expected property
+        if (msgObject.dev) displayAlert(msgObject["getStoredMsg"], false, pio.alertContainers);
+        return false;
+      }
+    } else { // Data doesn't contain the correct data type
+      if (msgObject.dev) displayAlert(msgObject["noValidMsg"], false, pio.alertContainers);
+      return false;
+    }
+  }
+  displayAlert(msgObject["noPunchesMsg"], false, pio.alertContainers);
+  return false;
+}
+
+function setupInterface(state, punch) {
   if (state == "ready" || state == "out") {
-    infc.inBtn.disabled = false;
-    infc.outBtn.disabled = true;
-    infc.changeBtn.disabled = true;
-    infc.displayBtn.disabled = (stored) ? false : true;
-    infc.assignBtn.disabled = true;
-    infc.clientTxt.disabled = true;
-    infc.projectTxt.disabled = true;
-    infc.jobTxt.disabled = true;
-    infc.clientTxt.value = "";
-    infc.projectTxt.value = "";
-    infc.jobTxt.value = "";    
-  } else if (state == "in") { // Enable/disable UI elements for punched IN condition
-    infc.inBtn.disabled = true;
-    infc.outBtn.disabled = false;
-    infc.changeBtn.disabled = false;
-    infc.displayBtn.disabled = false;
-    let cliSet = getSetStat(punch.client);
-    let projSet = getSetStat(punch.project);
-    let jobSet = getSetStat(punch.job);
-    if (!cliSet || !projSet || !jobSet) {
-      infc.assignBtn.disabled = false; // If any job fields are unset, enable
-    } else {
-      infc.assignBtn.disabled = true;
-    }
-    infc.clientTxt.disabled = (!cliSet) ? false : true; // If not already entered by user, enable
-    infc.projectTxt.disabled = (!projSet) ? false : true;
-    infc.jobTxt.disabled = (!jobSet) ? false : true;
-    infc.clientTxt.value = (!cliSet) ? "" : punch.client; // If user data is entered use it, else empty
-    infc.projectTxt.value = (!projSet) ? "" : punch.project;
-    infc.jobTxt.value = (!jobSet) ? "" : punch.job;    
-    } else if (state == "assign") { // Enable/disable UI elements for punched IN condition
-    infc.inBtn.disabled = true;
-    infc.outBtn.disabled = false;
-    infc.changeBtn.disabled = false;
-    infc.displayBtn.disabled = false;
-    let cliSet = getSetStat(punch.client);
-    let projSet = getSetStat(punch.project);
-    let jobSet = getSetStat(punch.job);
-    if (!cliSet || !projSet || !jobSet) {
-      infc.assignBtn.disabled = false; // If any job fields are unset, enable
-    } else {
-      infc.assignBtn.disabled = true;
-    }
-    infc.clientTxt.disabled = (!cliSet) ? false : true; // If not already entered by user, enable
-    infc.projectTxt.disabled = (!projSet) ? false : true;
-    infc.jobTxt.disabled = (!jobSet) ? false : true;
-    infc.clientTxt.value = (!cliSet) ? "" : punch.client; // If user data is entered use it, else empty
-    infc.projectTxt.value = (!projSet) ? "" : punch.project;
-    infc.jobTxt.value = (!jobSet) ? "" : punch.job;    
-    }
+    enableDisablePunchButtons("out");
+    pio.assignBtn.disabled = true;
+    pio.clientTxt.disabled = true;
+    pio.projectTxt.disabled = true;
+    pio.jobTxt.disabled = true;
+    pio.clientTxt.value = "";
+    pio.projectTxt.value = "";
+    pio.jobTxt.value = "";
+  } else if (state == "in" || state == "assign") { // Enable/disable UI elements for punched IN condition
+    enableDisablePunchButtons("in");
+    displayAssignFields(punch);
+  }
+}
+
+function enableDisablePunchButtons(state) {
+  pio.inBtn.disabled = (state == "in") ? true : false;
+  pio.outBtn.disabled = (state == "in") ? false : true;
+  pio.changeBtn.disabled = (state == "in") ? false : true;
+}
+
+function displayAssignFields(punch) {
+  let cliSet = getSetStat(punch.client);
+  let projSet = getSetStat(punch.project);
+  let jobSet = getSetStat(punch.job);
+  if (!cliSet || !projSet || !jobSet) {
+    pio.assignBtn.disabled = false; // If any job fields are unset, enable
+  } else {
+    pio.assignBtn.disabled = true;
+  }
+  pio.clientTxt.disabled = (!cliSet) ? false : true; // If not already entered by user, enable
+  pio.projectTxt.disabled = (!projSet) ? false : true;
+  pio.jobTxt.disabled = (!jobSet) ? false : true;
+  pio.clientTxt.value = (!cliSet) ? "" : punch.client; // If user data is entered use it, else empty
+  pio.projectTxt.value = (!projSet) ? "" : punch.project;
+  pio.jobTxt.value = (!jobSet) ? "" : punch.job;
+}
+
+function getSetStat(field) {
+  if (field == "Unset" || field == "") {
+    return false;
+  }
+  return true;
+}
+
+function Punch(punch_Id, inPunch) { // Definition for Punch object
+  this.punchId = punch_Id;
+  this.inTime = inPunch;
+  this.outTime = "Unset";
+  this.client = 'Unset';
+  this.project = 'Unset';
+  this.job = 'Unset';
+  this.status = 'Out';
 }
 
 function updateStatus(state, punch) { // Update the status display
@@ -126,154 +140,74 @@ function updateStatus(state, punch) { // Update the status display
     jobTxt = punch.job;
     statTxt = punch.status;
   }
-  infc.inDtLi.textContent = "In Date: " + inDtTxt; // Inject the text into the list items
-  infc.inTmLi.textContent = "In Time: " + inTmTxt;
-  infc.clientLi.textContent = "Client: " + cliTxt;
-  infc.projectLi.textContent = "Project: " + projTxt;
-  infc.jobLi.textContent = "Job: " + jobTxt;
-  infc.statusLi.textContent = "Status: Punched " + statTxt;
-}
-
-function initializePage(caller) { // Clear fields, displays, reset punchArray & clear localStorage
-  setupInterface("ready", false, 0);
-  if (caller == "init") { // optionally clear localStorage, determined by caller value
-    localStorage.clear();
-  }
-  updateStatus(caller); // Update status display
-  infc.results.innerHTML = ""; // clear out results display
-}
-
-function getSetStat(field) {
-  if (field == "Unset" || field == "") {
-    return false;
-  }
-  return true;
-}
-
-function Punch(punch_Id, inPunch) { // Definition for Punch object
-  this.punchId = punch_Id;
-  this.inTime = inPunch;
-  this.outTime = "Unset";
-  this.client = "Unset";
-  this.project = "Unset";
-  this.job = "Unset";
-  this.status = "Out";
-}
-
-function setDisplayMsg(audience, msg) { // Display messages to dev or user;
-  if (devMsgOn && audience == "dev") {
-      infc.devBox.style.display = "block";
-      infc.devMsg.textContent = msg;
-  } else if (usrMsgOn && audience == "user") {
-      infc.userBox.style.display = "block";
-      infc.userMsg.textContent = msg;
-  }
-}
-
-function getStoredPunches() {
-  let workArray = [];
-  if (localStorage.length > 0) {
-    workArray = JSON.parse(localStorage.getItem("punches"));
-    } else {
-    setDisplayMsg("dev", "There are no stored punches.");
-    }
-  return workArray;
-}
-
-function getFormattedDate(timeMS) {
-  let myDate = new Date(timeMS);
-  let dateString = "";
-  let timeString = "";
-  let hourSpace = "";
-  let minSpace = "";
-  let outArray = [];
-  dateString += myDate.getFullYear() + "-";
-  let myMonth = myDate.getMonth() + 1;
-  if (myMonth < 10) {
-    dateString += "0";
-  }
-  dateString += myMonth + "-";
-  let myDay = myDate.getDate();
-  if (myDay < 10) {
-    dateString += "0";
-  }
-  dateString += myDay;
-  let hours = myDate.getHours();
-  if (hours < 10) {
-    hourSpace = "0";
-  }
-  timeString += hourSpace + hours + ":";
-  let minutes = myDate.getMinutes();
-  if (minutes < 10) {
-    minSpace = "0";
-  }
-  timeString += minSpace + minutes;
-  outArray.push(dateString, timeString);
-  return outArray;
-}
-
-function getDuration(inTimeMS, outTimeMS) {
-  let hourSpace = "";
-  let minSpace = "";
-  let durMS = outTimeMS - inTimeMS;
-  let seconds = durMS / 1000;
-  let minutes = Math.round(seconds / 60);
-  let hours = Math.floor(minutes / 60);
-  if (hours < 10) {
-    hourSpace = "0";
-  }
-  let leftMinutes = minutes % 60;
-  if (leftMinutes < 10) {
-    minSpace = "0";
-  }
-  let outString = hourSpace + hours + ":" + minSpace + leftMinutes;
-  let outArray = [outString, minutes];
-  return outArray;
+  pio.inDtLi.textContent = "In Date: " + inDtTxt; // Inject the text into the list items
+  pio.inTmLi.textContent = "In Time: " + inTmTxt;
+  pio.clientLi.textContent = "Client: " + cliTxt;
+  pio.projectLi.textContent = "Project: " + projTxt;
+  pio.jobLi.textContent = "Job: " + jobTxt;
+  pio.statusLi.textContent = "Status: Punched " + statTxt;
 }
 
 function checkMultipleOpenPunch(array) {
   let result = array.filter(punch => punch.status == "In");
   if (result.length > 1) {
-    setDisplayMsg("dev", "There are multiple open punches.");
-    //return false;
-    return result[0];
+    if (msgObject.dev) displayAlert(msgObject["multiOpenMsg"], false, pio.alertContainers);
+    return false;
   } else {
     return result[0];
   }
 }
 
-
-
-infc.inBtn.addEventListener('click', function () { // Punch In button
+pio.inBtn.addEventListener('click', function () { // Punch In button
   let caller = "in"; // Identifies source of function calls
   let myTime = Date.now();
-  let punchArray = getStoredPunches();
+  let punchArray;
+  if (!getStoredPunches()) {
+    if (msgObject.dev) displayAlert(msgObject["noPunchesMsg"], false, pio.alertContainers);
+    punchArray = [];
+  } else {
+    punchArray = getStoredPunches();
+  }
   let punchId = punchArray.length; // Get an index number to assign this new punch
   punchArray[punchId] = new Punch(punchId, myTime); //Create new Punch object with index and in-time
   let thisPunch = punchArray[punchId]; // Assign the punch object to a variable
   thisPunch.status = "In"; // Set punch status
   localStorage.setItem('punches', JSON.stringify(punchArray)); // Put data back in storage
-  setupInterface("in", true, thisPunch); // Enable/disable UI elements
+  setupInterface(caller, thisPunch); // Enable/disable UI elements
   updateStatus(caller, thisPunch); //Update status display
 });
 
-infc.outBtn.addEventListener('click', function () { // Punch Out button
+pio.outBtn.addEventListener('click', function () { // Punch Out button
   let caller = "out"; // Identifies source of function calls
   let myTime = Date.now();
-  let punchArray = getStoredPunches();
+  let punchArray;
+  if (!getStoredPunches()) {
+    if (msgObject.dev) displayAlert(msgObject["wrongStat"], false, pio.alertContainers);
+    punchArray = [];
+    return false;
+  } else {
+    punchArray = getStoredPunches();
+  }
   let punchId = punchArray.length - 1; // Get the index number of the current punch
   let thisPunch = punchArray[punchId]; // Assign the punch object to a variable
   thisPunch.outTime = myTime; //Set the out-time for the punch
   thisPunch.status = "Out"; // Set status of punch to Out
   localStorage.setItem('punches', JSON.stringify(punchArray)); // Put data back in storage
-  setupInterface(caller, true, thisPunch); // Enable/disable UI elements
+  setupInterface(caller, thisPunch); // Enable/disable UI elements
   updateStatus(caller, thisPunch); // Update the status display
 });
 
-infc.changeBtn.addEventListener('click', function () { // Change Punch button (same as punch out and punch in in one action)
+pio.changeBtn.addEventListener('click', function () { // Change Punch button (same as punch out and punch in in one action)
   let caller = "in"; // Identifies source of function calls
   let myTime = Date.now();
-  let punchArray = getStoredPunches();
+  let punchArray;
+  if (!getStoredPunches()) {
+    if (msgObject.dev) displayAlert(msgObject["wrongStat"], false, pio.alertContainers);
+    punchArray = [];
+    return false;
+  } else {
+    punchArray = getStoredPunches();
+  }
   let punchId = punchArray.length; // Get an index number to assign this new punch
   punchArray[punchId] = new Punch(punchId, myTime); //Create new Punch object with index and in-time
   let thisPunch = punchArray[punchId]; // Assign the punch object to a variable
@@ -282,58 +216,25 @@ infc.changeBtn.addEventListener('click', function () { // Change Punch button (s
   lastPunch.outTime = myTime; //Set the out-time for the punch
   lastPunch.status = "Out"; // Set status of the previous punch to Out
   localStorage.setItem('punches', JSON.stringify(punchArray)); // Put data back in storage
-  setupInterface(caller, true, thisPunch); // Enable/disable UI elements
+  setupInterface(caller, thisPunch); // Enable/disable UI elements
   updateStatus(caller, thisPunch); // Update the status display
 });
 
-infc.assignBtn.addEventListener('click', function () { // Collect text input values and assign them to punch properties
+pio.assignBtn.addEventListener('click', function () { // Collect text input values and assign them to punch properties
   let caller = "assign";
-  let punchArray = getStoredPunches();
+  let punchArray;
+  if (!getStoredPunches()) {
+    if (msgObject.dev) displayAlert(msgObject["wrongStat"], false, pio.alertContainers);
+    punchArray = [];
+  } else {
+    punchArray = getStoredPunches();
+  }
   let punchId = punchArray.length;
   let thisPunch = punchArray[punchId - 1]; // Get the index number of the currently open punch
-  thisPunch.client = infc.clientTxt.value; // Assign text values from inputs to object properties
-  thisPunch.project = infc.projectTxt.value;
-  thisPunch.job = infc.jobTxt.value;
+  thisPunch.client = pio.clientTxt.value; // Assign text values from inputs to object properties
+  thisPunch.project = pio.projectTxt.value;
+  thisPunch.job = pio.jobTxt.value;
   localStorage.setItem('punches', JSON.stringify(punchArray)); // Put data back in storage
-  setupInterface(caller, true, thisPunch); // Enable/disable UI elements
+  setupInterface(caller, thisPunch); // Enable/disable UI elements
   updateStatus(caller, thisPunch); // Update the status display
 });
-
-infc.initBtn.addEventListener('click', function () { // Initialize the page deleting localStorage and clearing all inputs
-  let caller = "init"; // Identifies source of function calls
-  initializePage(caller);
-}); // Calls the initializer function
-
-infc.displayBtn.addEventListener('click', function () { // Retrieve and display the localStorage data
-  let gotPunches = getStoredPunches(); // Get stored punches as JSON object
-  let punchHTML = "<p><span class='tblHeader'>Date In,In Time,Date Out,Out Time,Duration H:M, Duration Minutes,Client,Project,Job,Status</span><br>"; // Set variable to build HTML string
-  gotPunches.forEach(htmlStringify); // Iterate the array
-  function htmlStringify(punch) { // Function to build HTML string
-    let inArray = getFormattedDate(punch.inTime);
-    let inDate = inArray[0];
-    let inTime = inArray[1];// getSetStat();
-    let outDate = punch.outTime;
-    let outTime = punch.outTime;
-    let duration = ["N/A", "N/A"];
-    if (getSetStat(punch.outTime)){
-      let outArray = getFormattedDate(punch.outTime);      
-      outDate = outArray[0];
-      outTime = outArray[1];
-      duration = getDuration(punch.inTime, punch.outTime);
-    }
-    punchHTML += inDate + "," + inTime + "," + outDate + "," + outTime + "," + duration[0] + "," + duration[1] + "," + punch.client + "," + punch.project + "," + punch.job + "," + punch.status + "<br>";
-  }
-  punchHTML += "</p>";
-  infc.results.innerHTML = punchHTML; // Inject the HTML string into the document  
-});
-
-infc.hideDevBtn.addEventListener('click', function() {
-  infc.devBox.style.display = "none";
-  infc.devMsg.textContent = "";
-});
-
-infc.hideUsrBtn.addEventListener('click', function() {
-  infc.userBox.style.display = "none";
-  infc.userMsg.textContent = "";
-});
-
