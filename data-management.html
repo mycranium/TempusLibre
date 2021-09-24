@@ -3,45 +3,54 @@
 <head>
 <meta charset="utf-8">
 <title>Data Management | TempusLibre</title>
-<script src="private/js/site-all.js" defer></script> 
-<script src="private/js/data-management.js" defer></script>
-<link rel="stylesheet" type="text/css" href="css/data-management.css">
-<link rel="stylesheet" type="text/css" href="css/site-style.css" >
-<link rel="stylesheet" type="text/css" title="lilac" href="css/lilac.css" >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://use.typekit.net/qoa5emu.css">
+<link rel="stylesheet" type="text/css" href="css/site-refactor.css" >
+<!--link rel="stylesheet" type="text/css" title="lilac" href="css/lilac.css" >
 <link rel="stylesheet" type="text/css" title="space" href="css/space.css" >
 <link rel="stylesheet" type="text/css" title="candy" href="css/candy.css" >
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" title="default" href="css/default.css" --> 
+<script src="private/js/site-all.js" defer></script> 
+<script src="private/js/data-management.js" defer></script>
 </head>
-<body class="grad1">
+<body id="managePage" class="grad1">
+<header>
+  <h1>TempusLibre</h1>
+  <h2>Simple Time Tracking</h2>
+</header>
 <nav>
   <div class="shd1 gradStat">
     <ul id="menu">
-      <li><a href="Local_Storage.html">Punch In/Out</a></li>
+      <li><a href="index.html">Punch In/Out</a></li>
       <li><a href="punch-view.html">View Punches</a></li>
       <li><a href="settings.html">Settings</a></li>
       <li><a href="help.html">Help &amp; Tips</a></li>
     </ul>
   </div>
 </nav>
-<div class="dbContainer brd1 shd1 gradPnch">
-  <p id="debug">Data</p>
-  <button class="abutton" id="delete" name="delete" >Delete</button>
-</div>
-<div id="deleteModal" class="modal">
-  <div id="promptContainer">
-    <div id="deletePrompt" class="shown">
-      <h1>Are you sure?</h1>
-      <p class="promptText">This will permanently delete <em>all</em> stored punch data.</p>
-      <p><strong>This cannot be undone.</strong></p>
-      <div class="promptBtns">
-        <button id="confBtn">Delete</button>
-        <button id="cancelBtn">Cancel</button>
+<main>
+  <div class="dbContainer brd1 shd1 gradPnch">
+    <h2 id="debug">Data Management</h2>
+    <p>Click the button to delete all your punch data.</p>
+    <p>Caution - this cannot be undone! Before deleting make sure to copy your punch data to a spreadsheet or text file using the features on the <a href="punch-view.html">Punch View</a> page.</p>
+    <button class="abutton" id="delete" name="delete" >Delete</button>
+  </div>
+  <div id="deleteModal" class="modal">
+    <div id="promptContainer">
+      <div id="deletePrompt" class="shown">
+        <h1>Are you sure?</h1>
+        <p class="promptText">This will permanently delete <em>all</em> stored punch data.</p>
+        <p><strong>This cannot be undone.</strong></p>
+        <div class="promptBtns">
+          <button id="confBtn">Delete</button>
+          <button id="cancelBtn">Cancel</button>
+        </div>
+      </div>
+      <div id="confPrompt" class="hid">
+        <p id="promptText">All punches have been deleted.</p>
       </div>
     </div>
-    <div id="confPrompt" class="hid">
-      <p id="promptText">All punches have been deleted.</p>
-    </div>
   </div>
-</div>
+</main>
 </body>
 </html>

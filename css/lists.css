@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+/*  font-size: 162.5%;*/
+}
+.holder {
+  background-color: #fcc;
+  padding:12px;
+  
+}
+.myList {
+  background-color: #cfc;
+  width: 50%;
+/*  padding-left:40px;*/
+}
+.items {
+  background-color: #ccf;
+}

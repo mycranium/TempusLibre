@@ -34,7 +34,7 @@ function displayConf() {
           cnBtn.removeEventListener('click', cancelButton, false);
         }); //end cnBtn listenetr func
         cfBtn.addEventListener('click', function confirmButton() {
-          //localStorage.removeItem('punches'); // delete punches
+          localStorage.removeItem('punches'); // delete punches
           dPrmp.classList.add('out'); // add 'out' class to dPrmp to fade it out
           dPrmp.addEventListener('transitionend', function dPrmpEnd(e) {
             if (e.propertyName == 'opacity') {

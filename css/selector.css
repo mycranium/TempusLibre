@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+select {
+  
+  width: 15em;
+}
+/*
+input:invalid {
+  background-color: red;
+}
+*/
+
+input, select, button {
+  display: block;
+}

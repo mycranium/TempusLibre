@@ -1,9 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 :root {
-  --text-color: #fff;
+  --text-color: #000;
   --accent: #ff0;
-  --shadow-color: rgba(255, 255, 255, .2);
+  --shadow-color: rgba(0, 0, 0, .2);
   --btnText: #323232;
 }
 body {
@@ -12,16 +12,11 @@ body {
   font-style: normal;
   font-weight: 400;
 }
-h1, h2 {
-  font-family: cronos-pro-display, sans-serif;
-  font-style: normal;
-  font-weight: 400;
+header {
+/*  background-color: rgba(0, 0, 0, .4);*/
 }
-h3, h4 {
-  font-family: source-sans-pro, sans-serif;
-  font-style: normal;
-  font-weight: 400;
-}
+
+
 #menu > li > a {
   color: var(--text-color);
 }
@@ -33,14 +28,9 @@ h3, h4 {
   text-decoration: underline solid var(--accent);
 }
 .statusDiv {
-  border-radius: 2.79em 2.79em .8em 2.79em;
 }
 /* PUNCH BUTTON section */
 .welToLV {
-  border-top-left-radius: 6.7em 50%;
-  border-top-right-radius: .67em 6%;
-  border-bottom-right-radius: 6.7em 50%;
-  border-bottom-left-radius: 6.7em 50%;
   padding: 1.4em 0;
 }
 button.punchButton {
@@ -48,13 +38,6 @@ button.punchButton {
   box-shadow: 3px 3px 10px rgba(0,0,0,.35), -2px -2px 4px rgba(0,0,0,.05);
 }
 #punchIn {
-  border-top-left-radius: 50% 50%;
-  border-top-right-radius: 50% 50%;
-  border-bottom-right-radius: 5% 5%;
-  border-bottom-left-radius: 50% 50%;
-  background: radial-gradient(circle at center, #FFF 62%, #0F0 62%);
-  border:none;
-/*  text-shadow: 4px 4px 3px rgba(0,0,0,.17), -2px -2px 1px rgba(0,0,0,.1), 1px 1px 1px rgba(0,127,0,.5);*/
   box-shadow: 3px 3px 10px rgba(0,0,0,.35), -1px -1px 4px rgba(0,0,0,.05);
   transition: all 400ms ease;
 }
@@ -67,21 +50,9 @@ button.punchButton {
   transition: all 400ms ease;
 }
 #punchChange {
-  border-top-left-radius: 5% 5%;
-  border-top-right-radius: 50% 50%;
-  border-bottom-right-radius: 5% 5%;
-  border-bottom-left-radius: 50% 50%;
-  background: radial-gradient(circle at center, #FFF 62%, #FE0 62%, #FF0 85%);
-/*  text-shadow: 4px 4px 3px rgba(0,0,0,.3), -2px -2px 1px rgba(0,0,0,.1);*/
   transition: all 400ms ease;
 }
 #punchOut {
-  border-top-left-radius: 50% 50%;
-  border-top-right-radius: 5% 5%;
-  border-bottom-right-radius: 50% 50%;
-  border-bottom-left-radius: 50% 50%;
-  background: radial-gradient(circle at center, #FFF 62%, #F00 62%);
-/*  text-shadow: 4px 4px 4px rgba(0,0,0,.3), -2px -2px 1px rgba(0,0,0,.1);*/
   transition: all 400ms ease;
 }
 .pressedChange {
@@ -102,38 +73,31 @@ button.punchButton {
   }
 }
 /* Job Assignment section*/
-.assignSec {
-  border-radius: 12px 12px 38px 38px;
-}
-#assign {
-  border-radius: .2em .2em 1em 1em;
-}
-.row.menupod {
-  border-radius: 6px 38px 6px 38px;
-}
+
 /*
 punch-view.html
 */
 ul.punchPod {
-  border: 1px solid white;
-  background-color: rgba(255, 255, 255, .5);
-  color: black;
-  border-radius: 10px;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
 }
-#displayContainer {
+.col7, .col8, .col9 {
+  color: var(--text-color);
+}
+.col9 {
+  border-radius: 0 0 10px 10px;
+}
+/*#displayContainer {
   margin-top: .5rem;
 }
-#displayControlsNew {
-  border-radius: 30px 30px 20px 20px;
-  background-color: rgba(127, 0, 127, .4);
-}
+
 
 .dispBtnCont {
   padding:0 6px 6px;
 }
 .dispBtnCont:nth-child(2) {
-  border-left: 1px solid rgba(255, 255, 255, .5);
-  border-right: 1px solid rgba(255, 255, 255, .5);
+  border-left: 1px solid var(--text-color);
+  border-right: 1px solid var(--text-color);
 }
 .dispBtnCont > h2 {
   font-family: source-sans-pro, sans-serif;
@@ -168,33 +132,39 @@ ul.dataButtons > li > .dataButton {
   width: 100%;
   height: auto;
   padding:0;
-  border: none;
-  border-radius: 14px;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
   margin: 0;
 }
 ul.dataButtons > li:first-child {
   margin-bottom: 8px;
 }
+*/
 
 
 /* Gradients */
-.grad1, .grs2Lilac { /* Lilac */
+/*
+.grad1, .grs2Lilac {  Lilac 
   background:
     radial-gradient(ellipse 100% 120% at bottom left, transparent 84%, rgba(255, 200, 220, .6) 90%, rgba(255, 200, 220, .2) 90%, transparent), radial-gradient(ellipse 150% 100% at 100% 140%, transparent 84%, rgba(255, 200, 220, .6) 90%, rgba(255, 200, 220, .2) 90%, transparent), radial-gradient(ellipse at top left, rgba(225, 30, 130, .5), transparent), radial-gradient(ellipse at bottom right, rgba(130, 30, 255, .5), transparent);
   background-color: #fff;
 }
+*/
 /*.gradStat, .gradPnch, .gradJob, .gradDisp*/
+/*
 .gradStat, .gl1Purple {
   background: linear-gradient(90deg, rgba(100, 0, 255, .4), rgba(100, 0, 255, 0) 100%);
 }
 .gradPnch, .gradJob, .gradDisp {
   background-color: rgba(255, 255, 0, .3);
 }
+*/
 /* Borders */
 .brd1, .brdWhite1 {
   border: 1px solid var(--text-color);
 }
 /* Shadows */
-.shd1 { /*shW10*/
+/*
+.shd1 {
   box-shadow: 10px 10px 10px rgba(255, 255, 255, .2);
 }*/
