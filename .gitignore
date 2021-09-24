@@ -23,3 +23,7 @@ mysql/
 *-bak*
 
 *scratch*
+
+.htaccess
+
+.gitignore
