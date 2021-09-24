@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Settings | TempusLibre</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://use.typekit.net/qoa5emu.css">
+<link rel="stylesheet" type="text/css" href="css/site-refactor.css" >
+<!--link rel="stylesheet" type="text/css" title="lilac" href="css/lilac.css" >
+<link rel="stylesheet" type="text/css" title="space" href="css/space.css" >
+<link rel="stylesheet" type="text/css" title="candy" href="css/candy.css" >
+<link rel="stylesheet" type="text/css" title="default" href="css/default.css" --> 
+<script src="private/js/site-all.js" defer></script> 
+<script src="private/js/settings.js" defer></script>
+</head>
+<body id="settingsPage" class="grad1">
+<header>
+  <h1>TempusLibre</h1>
+  <h2>Simple Time Tracking</h2>
+</header>
+<nav>
+  <div class="shd1 gradStat">
+    <ul id="menu">
+      <li><a href="index.html">Punch In/Out</a></li>
+      <li><a href="punch-view.html">View Punches</a></li>
+      <li><a href="data-management.html">Manage</a></li>
+      <li><a href="help.html">Help &amp; Tips</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <section class="cssSwitch">
+    <div class="cssBtns">
+      <h2>Style Settings</h2>
+      <p>"Lilac" is the only viable one at the moment</p>
+      <input type="button" name="changeStyle1" id="default" class="cssBtn" value="Default">
+      <input type="button" name="changeStyle1" id="lilac" class="cssBtn" value="Lilac">
+      <input type="button" name="changeStyle2" id="space" class="cssBtn" value="Space">
+      <input type="button" name="changeStyle3" id="candy" class="cssBtn" value="Candy">
+    </div>
+  </section>
+  <section class="setSec" id="dateTime">
+    <h2>Date/Time Format</h2>
+    <p>Set options for the display of date and time.</p>
+    <p>This only affects on-screen display. The data copied to the clipboard from the View Punches page uses the default format.</p>
+    <div class="example" id="dateExample">
+      <p>Selected format:</p>
+      <p></p>
+      <ul class="radioGroup">
+        <li>
+          <input type="radio" id="data" name="dateStyle" value="0" checked autocomplete="off">
+          <label for="data">Data style - example: 2020-09-02, 01:36 PM</label>
+        </li>
+        <li>
+          <input type="radio" id="narr" name="dateStyle" value="1" autocomplete="off">
+          <label for="narr">Narrative style - example: Monday, February 1, 2021, 10:18 AM</label>
+        </li>
+      </ul>
+      <ul class="radioGroup">
+        <li>
+          <input type="radio" id="twenty-four" name="clockType" value="0" checked autocomplete="off">
+          <label for="twenty-four">24-hour clock - example: 19:42</label>
+        </li>
+        <li>
+          <input type="radio" id="twelve" name="clockType" value="1" autocomplete="off">
+          <label for="twelve">12-hour clock - example: 7:42 PM</label>
+        </li>
+      </ul>
+      <ul class="radioGroup">
+        <li>
+          <input type="radio" id="ymd" name="dateOrder" value="0" checked autocomplete="off">
+          <label for="ymd">Year-Month-Date</label>
+        </li>
+        <li>
+          <input type="radio" id="ydm" name="dateOrder" value="1" autocomplete="off">
+          <label for="ydm">Year-Date-Month</label>
+        </li>
+        <li>
+          <input type="radio" id="mdy" name="dateOrder" value="2" autocomplete="off">
+          <label for="mdy">Month-Date-Year</label>
+        </li>
+        <li>
+          <input type="radio" id="dmy" name="dateOrder" value="3" autocomplete="off">
+          <label for="dmy">Date-Month-Year</label>
+        </li>
+      </ul>
+      <ul class="radioGroup">
+        <li>
+          <input type="radio" id="timeF" name="timeFirst" value="0" checked autocomplete="off">
+          <label for="timeF">Show time before date</label>
+        </li>
+        <li>
+          <input type="radio" id="dateF" name="timeFirst" value="1" autocomplete="off">
+          <label for="dateF">Show date before time</label>
+        </li>
+      </ul>
+      <ul class="radioGroup">
+        <li>
+          <input type="radio" id="four-digit" name="dateYear" value="0" checked autocomplete="off">
+          <label for="four-digit">Four-digit year</label>
+        </li>
+        <li>
+          <input type="radio" id="two-digit" name="dateYear" value="1" autocomplete="off">
+          <label for="two-digit">Two-digit year</label>
+        </li>
+      </ul>
+      <ul class="radioGroup">
+        <li>
+          <input type="checkbox" id="dayName" name="dateDay" value="1" autocomplete="off">
+          <label for="dayName">Include day name</label>
+        </li>
+        <li>
+          <input type="checkbox" id="abbr" name="dateAbbr" value="1" autocomplete="off">
+          <label for="abbr">Use abbreviations for day and month</label>
+        </li>
+      </ul>
+      <ul class="radioGroup">
+        <li>
+          <input type="radio" id="dash" name="datePunct" value="0" checked autocomplete="off">
+          <label for="dash">Punctuate with dashes</label>
+        </li>
+        <li>
+          <input type="radio" id="slash" name="datePunct" value="1" autocomplete="off">
+          <label for="slash">Punctuate with slashes</label>
+        </li>
+      </ul>
+    </div>
+    <button id="saveDateTimeBtn">Save Date/Time Settings</button>
+    <button id="logSettings">Display Settings</button>
+  </section>
+  <section id="clipAlert" class="default">
+    <p id="alertText"></p>
+  </section>
+</main>
+</body>
+</html>

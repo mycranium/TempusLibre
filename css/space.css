@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+  body {
+    color: white;
+}
+#menu > li > a {
+  color:white;
+}
+#menu > li > a:active, #menu > li > a:visited {
+  color:white;
+}
+#menu > li > a:hover {
+  color:white;
+  text-decoration: underline #FFF;
+}
+/* Gradients */
+.grad1, .grSctch {/* Lilac */
+  background: radial-gradient(circle 800px at 50% 135%, rgba(0,0,40,1) 80%, rgba(80,80,80,1) 90%, rgba(80,80,255,.5) 90%, transparent) , 
+          radial-gradient(circle 250px at 80px 60px, rgba(0,0,0,1), rgba(0,0,0,1) 54%, rgba(0,0,0,1) 54%, transparent 71%),
+          /*radial-gradient(circle 250px at 90px 70px, rgba(0,0,0,.8), rgba(0,0,0,1) 70%, transparent 74%),*/
+          radial-gradient(circle 250px at 90px 70px, rgba(40,40,10,0), rgba(120,35,18,1) 70%, rgba(100,100,255,.35) 70.5%, transparent) ;
+  background-color: #000;
+}
+/*.gradStat, .gradPnch, .gradJob, .gradDisp*/
+.gradStat, .gradPnch, .gradJob, .gradDisp, .gl1Purple {
+      background: linear-gradient(90deg, rgba(80,0,200,.4), rgba(80,0,200,.8), rgba(80,0,200,.3));
+}
+
+.brd1, .brdBlue1 {
+   border: 2px solid #00f;
+}
+/* Shadows */
+.shd1 {/*shW10*/
+   box-shadow: 10px 10px 10px rgba(100,0,255,.5);
+}

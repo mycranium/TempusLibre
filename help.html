@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Help | TempusLibre</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://use.typekit.net/qoa5emu.css">
+<link rel="stylesheet" type="text/css" href="css/site-refactor.css" >
+<!--link rel="stylesheet" type="text/css" title="lilac" href="css/lilac.css" >
+<link rel="stylesheet" type="text/css" title="space" href="css/space.css" >
+<link rel="stylesheet" type="text/css" title="candy" href="css/candy.css" >
+<link rel="stylesheet" type="text/css" title="default" href="css/default.css" --> 
+<script src="private/js/site-all.js" defer></script> 
+<script src="private/js/settings.js" defer></script>
+</head>
+<body id="helpPage">
+<header>
+  <h1>TempusLibre</h1>
+  <h2>Simple Time Tracking</h2>
+</header>
+<nav>
+  <div class="shd1 gradStat">
+    <ul id="menu">
+      <li><a href="index.html">Punch In/Out</a></li>
+      <li><a href="punch-view.html">View Punches</a></li>
+      <li><a href="data-management.html">Manage</a></li>
+      <li><a href="settings.html">Settings</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <div class="helpPageCont">
+    <h1>Help &amp; Tips</h1>
+    <section class="helpsec">
+      <h2>Warning:</h2>
+      <p>This app/site is in alpha. The site styling is not complete and it has only been tested in Firefox so far.</p>
+      <p>The punch data is stored in your browser's local storage. If you clear your browser cache, and your settings include "Clear personal data" etc., then you will delete all your stored punch data. Please be careful, and copy your punches to a spreadsheet or text file frequently.</p>
+      <p>This is of special concern if you have your browser set to clear its cache and stored data on exit.</p>
+      <p>Updates made to the page or design by the creator will not affect your stored data. Your data never leaves your browser until you paste it into some other file, or until you delete it.</p>
+      <p>Punches generated in one browser will not be present in other browsers, even on the same device. You cannot punch in on one device and out on another. This limitation is a result of the software storing data in-browser rather than on a remote database. In the future this app will be developed to use a remote database, and you will be able to punch in on one device and out on another. Today is not that day.</p>
+      <p>In the meantime you can, for example, use one browser to track work time and another to track non-work time if you want to roll that way.</p>
+      <p>Use this site at your own risk. TempusLibre.io accepts no responsibility for lost data or harm as the result of your use of this site. This site is presented as-is, and makes no claim for suitability for any particular purpose.</p>
+      <p>If you have feedback, or would like to be an official tester, please contact me at mike at mografmike dot com.</p>
+      <h3>Copying Your Punches</h3>
+      <p>On the View Punches page, once you've displayed punches, you can click the "Copy to Clipboard" button. The displayed data will be copied to the clipboard. You can either paste it into a text file, or into a spreadsheet such as Google Sheets or Excel. Simply click cell A1 (or any single cell where you want the header row to begin) and then paste the data. It will automatically be pasted into columns and rows.</p>
+      <p>If you paste it into a text file, you can import that into a spreadsheet as tab-separated values data.</p>
+    </section>
+    <section class="helpsec">
+      <h2>Planned Changes</h2>
+      <ul>
+        <li>Create accessible stylesheet</li>
+        <li>Finish site styling</li>
+        <li>Change punch data so date and time are in the same column (for better sorting functionality in spreadsheets)</li>
+        <li>Add option to include or exclude header from data copied to clipboard</li>
+        <li>Make punches editable</li>
+        <li>Add ability to save clients/projects/jobs so user can select them instead of typing them in</li>
+        <li>Add options to filter display of punches by client/project/job/date range</li>
+        <li>Add visualizations for time tracking data</li>
+        <li>Develop into database-driven version with multi-user options</li>
+        <li>?</li>
+        <li>Profit</li>
+      </ul>
+    </section>
+    <section class="helpsec">
+      <h2>About TempusLibre</h2>
+      <p><span>TempusLibre</span> is a simple time tracking web app. It's meant to be easy to start using right away without time-consumimg setup.</p>
+      <p>You can start tracking time with the click of a single button.</p>
+      <p>Once you've punched in you have the option to assign the punch to a client, project and job.</p>
+      <p>You can view your punches at any time, and copy the punch data to the clipboard for pasting into a Google or Excel spreadsheet, or a tab-separated values (tsv) file.</p>
+      <p>You'll find detailed use instructions below.</p>
+      <aside>
+        <p>With TempusLibre, all operations are performed on your device, and all data is stored in your browser's internal storage. Your data is never transmitted, stored, collected or tracked in any way.</p>
+        <p>TempusLibre does not even use cookies. Any settings that need to be stored are stored only in your browser's storage, never transmitted or collected.</p>
+      </aside>
+    </section>
+    <section class="helpsec">
+      <h2>Status Area</h2>
+      <p>This box displays information about the currently active punch.</p>
+      <p>At the top it shows your current punch status, either In or Out.</p>
+      <p>Below that, if you're punched in, it displays the date and time you punched in.</p>
+      <p>If you've assigned the punch to a client, project or job it will show that information as well.</p>
+    </section>
+    <section class="helpsec">
+      <h2>Punch In/Out Page</h2>
+      <p>This is where you punch in and out, and assign punches to clients, projects and jobs.</p>
+      <h3>Punch Buttons</h3>
+      <p>There are three buttons in this section:</p>
+      <ul class="helpList">
+        <li>Punch In button</li>
+        <li>Change Jobs button</li>
+        <li>Punch Out button</li>
+      </ul>
+      <h4>Punch In</h4>
+      <p>Tap or click this button to start a punch.</p>
+      <p>When you do, the app records the current time and saves it.</p>
+      <p>The Status Area will be updated to reflect the new condition and the Assign Section is enabled to accept input.</p>
+      <p>That's all you need to do to start tracking. Of course it will be more useful later if you assign your punches, but you're not required to do so before you can track time (or ever, really).</p>
+      <h4>Change Jobs</h4>
+      <p>Tap or click this button to punch out of an active punch and into a new one.</p>
+      <p>The current time is recorded for the Out Time of the old punch and the In Time of the new punch. The old punch is stored, the and the Status Area is updated with the new punch information.</p>
+      <p>The Assign Section is enabled, ready for you to assign the punch if you wish.</p>
+      <h4>Punch Out</h4>
+      <p>Tap or click this button to end the current punch and save it.</p>
+      <h3>Assign Section</h3>
+      <p>Use this section to assign the current punch to a client, project and/or a job.</p>
+      <p>The elements in the Assign Section are only available if you are punched in. You can't assign a punch once you've punched out.</p>
+      <p>You can assign any, all or none of the fields.</p>
+      <p>Once you've tapped the Assign Button, any fields you have assigned will be stored and the Status Area will be updated. Any fields you left blank will remain enabled to accept input.</p>
+      <p>It's important that you tap the Assign Button after entering text in the fields before you punch out or change jobs. If you don't, the assignment will not be saved, and any unassigned fields for that punch will be stored with the default value of "Unset".</p>
+    </section>
+    <!--section class="helpsec"> </section>
+    <section class="helpsec"></section>
+    <section class="helpsec"></section>
+    <section class="helpsec"></section>
+    <section class="helpsec"></section-->
+  </div>
+</main>
+<footer></footer>
+</body>
+</html>

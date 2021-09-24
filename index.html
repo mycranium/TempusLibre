@@ -1,28 +1,66 @@
-<!DOCTYPE html>
-<html><head>
-<title>Base Time</title>
-	
-	
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<link href="css/ajaxstyle.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/basetime_script.js"></script>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Punch In/Out | TempusLibre</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://use.typekit.net/qoa5emu.css">
+<link rel="stylesheet" type="text/css" href="css/site-refactor.css" >
+<link rel="stylesheet" type="text/css" title="lilac" href="css/lilac.css" >
+<link rel="stylesheet" type="text/css" title="space" href="css/space.css" >
+<link rel="stylesheet" type="text/css" title="candy" href="css/candy.css" >
+<link rel="stylesheet" type="text/css" title="default" href="css/default.css" > 
+<script src="private/js/site-all.js" defer></script> 
+<script src="private/js/local_storage_real.js" defer></script>
 </head>
-<body>
-    <div id="mainform">
-        <div class="innerform">
-            <h2>Base Time</h2>
-            <!-- Required div starts here -->
-            <form id="form" name="form">
-                <h3>Enter your information</h3>
-                <div>
-                    <input type="button" name="submit" onclick="myfunction('in')" value="In" disabled>
-                    <input type="button" name="Change" onclick="myfunction('change')" value="Change Jobs">
-                    <input type="button" name="Out" onclick="myfunction('out')" value="Punch Out">
-                </div>
-            </form>
-            <div id="clear"></div>
-        </div>
-        <div id="cleary"></div>
+<body id="indexPage" class="grad1">
+<header>
+  <h1>TempusLibre</h1>
+  <h2>Simple Time Tracking</h2>
+</header>
+<main>
+  <div class="statusDiv brd1 shd1 gradStat">
+    <h3 id="statusH">You are punched <span id="statusSpan">IN</span></h3>
+    <ul class="statusList">
+      <li id="clientDisplay">Client: --</li>
+      <li id="projectDisplay">Project: --</li>
+      <li id="jobDisplay">Job: --</li>
+    </ul>
+  </div>
+  <div class="row flex welToLV brd1 shd1 gradPnch">
+    <button class="punchButton" type="button" id="punchIn" name="punchIn" disabled><span class="btnFirstLn">Punch</span><br>
+    In</button>
+    <button class="punchButton" type="button" id="punchChange" name="punchChange" disabled><span class="btnFirstLn">Change</span><br>
+    Jobs</button>
+    <button class="punchButton" type="button" id="punchOut" name="punchOut" disabled><span class="btnFirstLn">Punch</span><br>
+    Out</button>
+  </div>
+  <section class="assignSec brd1 shd1 gradJob">
+    <div class="assignCont">
+      <div class="grid assign">
+        <label for="client">Client: </label>
+        <input class="textInput" type="text" maxlength="200" id="client" name="client" placeholder="Type Client Name">
+        <label for="project">Project: </label>
+        <input class="textInput" type="text" maxlength="200" id="project" name="project" placeholder="Type Project Name">
+        <label for="job">Job: </label>
+        <input class="textInput" type="text" maxlength="200" id="job" name="job" placeholder="Type Job Name">
+        <button type="button" id="assign" name="assign">Assign</button>
+      </div>
     </div>
+  </section>
+  <div class="row menupod brd1 shd1 gradStat">
+    <h3>Menu</h3>
+    <ul id="menu">
+      <li><a href="punch-view.html">View Punches</a></li>
+      <li><a href="data-management.html">Manage</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="help.html">Help &amp; Tips</a></li>
+    </ul>
+  </div>
+  <section id="results"></section>
+</main>
+<section id="clipAlert" class="default">
+  <p id="alertText"></p>
+</section>
 </body>
 </html>
