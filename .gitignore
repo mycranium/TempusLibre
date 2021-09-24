@@ -6,3 +6,20 @@ _Work/
 
 # files in the _old folder
 _old/
+
+# files in the _php folder
+php/
+
+functionality descriptions/
+
+_notes/
+
+_todo/
+
+old_*
+
+mysql/
+
+*-bak*
+
+*scratch*
