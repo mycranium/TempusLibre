@@ -1,0 +1,138 @@
+clientObjectSample =
+{
+  client: "thisClient",
+  projects: [
+   {name: "thisProject",
+    id: 1,
+    jobs: [
+      {name: "thisJob", id:1},
+      {name: "thisJob", id:2},
+      {name: "thisJob", id:3},
+      {name: "thisJob", id:4}
+    ]
+    },
+   {name: "thatProject",
+    id: 2,
+    jobs: [
+      {name: "thatJob", id:5},
+      {name: "thatJob", id:6},
+      {name: "thatJob", id:7},
+      {name: "thatJob", id:8}
+    ]
+    },
+  ]
+};
+
+
+//var mainClientList = {
+var mcl = {
+  clients: [
+    {name: "Unspecified", id: 0},
+    {name: "InVision", id: 1},
+    {name: "Goliath", id: 2},
+    {name: "Udacity", id: 3},
+    {name: "Pantry Pals", id: 4},
+    {name: "Spinifex", id: 5}
+  ],
+  clientConnector: [
+    {clientId: 1, projectId: 0},
+    {clientId: 1, projectId: 1},
+    {clientId: 1, projectId: 2},
+    {clientId: 1, projectId: 6},
+    {clientId: 2, projectId: 3},
+    {clientId: 2, projectId: 4},
+    {clientId: 2, projectId: 5},
+    {clientId: 3, projectId: 7},
+    {clientId: 3, projectId: 8},
+    {clientId: 3, projectId: 9},
+    {clientId: 4, projectId: 10},
+    {clientId: 4, projectId: 11},
+    {clientId: 4, projectId: 12},
+    {clientId: 5, projectId: 13},
+    {clientId: 5, projectId: 14},
+    {clientId: 5, projectId: 15}
+  ],
+  projects: [
+    {name: "Unspecified", id: 0},
+    {name: "Dell FRS24", id: 1},
+    {name: "Dell Tech Summit 24", id: 2},
+    {name: "There's Been a Murder", id: 3},
+    {name: "Dance Charades", id: 4},
+    {name: "Diary of a Wimpy Kid", id: 5},
+    {name: "Dell Sales Ready 23", id: 6},
+    {name: "VRND", id: 7},
+    {name: "MoDePa", id: 8},
+    {name: "Python", id: 9},
+    {name: "Pantry", id: 10},
+    {name: "Stairs", id: 11},
+    {name: "Alcove", id: 12},
+    {name: "LA Auto Show 24", id: 13},
+    {name: "Detroit Auto Show 24", id: 14},
+    {name: "Sydney VidLights", id: 15},
+  ],
+  projectConnector: [
+    {projectId: 0, jobId: 1},
+    {projectId: 1, jobId: 1},
+    {projectId: 1, jobId: 2},
+    {projectId: 1, jobId: 3},
+    {projectId: 1, jobId: 4},
+    {projectId: 2, jobId: 1},
+    {projectId: 2, jobId: 4},
+    {projectId: 2, jobId: 3},
+    {projectId: 3, jobId: 5},
+    {projectId: 3, jobId: 6},
+    {projectId: 3, jobId: 8},
+    {projectId: 4, jobId: 8},
+    {projectId: 4, jobId: 9},
+    {projectId: 5, jobId: 17},
+    {projectId: 6, jobId: 1},
+    {projectId: 6, jobId: 3},
+    {projectId: 7, jobId: 5},
+    {projectId: 7, jobId: 9},
+    {projectId: 8, jobId: 0},
+    {projectId: 8, jobId: 11},
+    {projectId: 9, jobId: 6},
+    {projectId: 10, jobId: 11},
+    {projectId: 10, jobId: 12},
+    {projectId: 10, jobId: 15},
+    {projectId: 11, jobId: 21},
+    {projectId: 11, jobId: 24},
+    {projectId: 12, jobId: 10},
+    {projectId: 13, jobId: 16},
+    {projectId: 14, jobId: 18},
+    {projectId: 15, jobId: 20}
+  ],
+  jobs: [
+    {name: "Unspecified", id: 0},
+    {name: "Lower thirds", id: 1},
+    {name: "Keynote Overlays", id: 2},
+    {name: "Experiential", id: 3},
+    {name: "Segment bumpers", id: 4},
+    {name: "3D Modeling", id: 5},
+    {name: "Video Editing", id: 6},
+    {name: "Storyboarding", id: 7},
+    {name: "Asset preparation", id: 8},
+    {name: "Rendering", id: 9},
+    {name: "Material Shopping", id: 10},
+    {name: "Design", id: 11},
+    {name: "Wood cutting", id: 12},
+    {name: "Assembly", id: 13},
+    {name: "Painting", id: 14},
+    {name: "Cleanup", id: 15},
+    {name: "LED Installation", id: 16},
+    {name: "Graphics creation", id: 17},
+    {name: "Brightsign programming", id: 18},
+    {name: "Laser maze fabrication", id: 19},
+    {name: "Admin", id: 20},
+    {name: "Communications", id: 21},
+    {name: "File prep", id: 22},
+    {name: "Template review", id: 23},
+    {name: "Meeting", id: 24},
+    {name: "Laser Cutting", id: 25},
+    {name: "Lawn Mowing", id: 26},
+    {name: "Cooking", id: 27},
+    {name: "Meal Planning", id: 28},
+    {name: "Cello Practice", id: 29},
+    {name: "Training", id: 30}
+  ]
+};

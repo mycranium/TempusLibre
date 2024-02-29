@@ -1,0 +1,16 @@
+To Do:
+Exclusive feature:
+
+Event handler for yes/no buttons in alert message
+yes = complete assignment, no = animate out, return
+
+clear alert box text after slide off
+
+Styling for alert box
+
+Put other alerts in alert box
+
+Reset Exclusive check to checked on cancel or save
+
+Make addNewEntry add "unspecified" projects and jobs when new client created, and add them to cliObj
+
