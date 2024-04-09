@@ -2,62 +2,6 @@
 
 const clients = [
   {
-    name: "Unspecified",
-    id: 0,
-    projects: [{
-        name: "Relentless",
-        id: 10,
-        jobs: [{
-            name: "Chapter 1",
-            id: 100
-          },
-          {
-            name: "Chapter 2",
-            id: 101
-          },
-          {
-            name: "Chapter 3",
-            id: 102
-          }
-        ]
-      },
-      {
-        name: "Home Depot",
-        id: 11,
-        jobs: [{
-            name: "Turf Builder",
-            id: 103
-          },
-          {
-            name: "Kitchen Tile",
-            id: 104
-          },
-          {
-            name: "Appliances",
-            id: 105
-          }
-        ]
-      },
-      {
-        name: "Quarantine",
-        id: 12,
-        jobs: [{
-            name: "Ghostbusters",
-            id: 106
-          },
-          {
-            name: "Workouts",
-            id: 107
-          },
-          {
-            name: "Masks",
-            id: 108
-          }
-        ]
-      }
-    ]
-  },
-  {
     name: "Tesh",
     id: 0,
     projects: [{
@@ -217,14 +161,14 @@ function setupPage(level, content) {
   const newClient = document.getElementById('clientNew');
   newClient.value = "";
   newClient.disabled = true;
-  const newProject = document.getElementById('projectsNew');
+  const newProject = document.getElementById('projectNew');
   newProject.value = "";
   newProject.disabled = true;
-  document.getElementById('projectsSel').disabled = true;
-  const newJob = document.getElementById('jobsNew');
+  document.getElementById('projectSel').disabled = true;
+  const newJob = document.getElementById('jobNew');
   newJob.value = "";
   newJob.disabled = true;
-  document.getElementById('jobsSel').disabled = true;
+  document.getElementById('jobSel').disabled = true;
 //  document.getElementById('assign').disabled = true;
   //  console.log(level);
   popSelect(level, content);
@@ -236,47 +180,26 @@ function Job(jobName, jobId) {
 }
 
 function popSelect(level, content) {
-  let selId = level + "Sel";
-  let optArr = content.map(v => `<option class=\"dynamic\" value=\"${v.name}\">${v.name}</option>`);
-  let defArr = [`<option value="default">Select or Add New ${level}</option>`, '<option value="new">Add New</option>'];
-  let selector = document.getElementById(selId)
+  const selId = level + "Sel";
+  const optArr = content.map(v => `<option value=\"${v.name}\">${v.name}</option>`);
+  const defArr = [`<option value="default">Select or Add New ${level}</option>`, '<option value="new">Add New</option>'];
+  const selector = document.getElementById(selId)
   selector.innerHTML = defArr.concat(optArr).join("\n");
   selector.disabled = false;
-  addListeners(level);
 }
 
 function enableNextInput(level) {
+//console.log(level);
   var thisInput = document.getElementById(level + "New");
   var nextLevel = "";
-  var thirdLevel = ""
   if (level == "client") {
-    nextLevel = "projects";
-    thirdLevel = "jobs";
-  } else if (level == "projects") {
-    nextLevel = "jobs"
-    thirdLevel = "done";
-  } else if (level == "jobs") {
+    nextLevel = "project";
+  } else if (level == "project") {
+    nextLevel = "job"
+  } else if (level == "job") {
     nextLevel = "done";
   }
   thisInput.disabled = false;
-  if (nextLevel != "done") {
-    let nextSel = document.querySelector('#' + nextLevel + "Sel");
-    let dels = nextSel.getElementsByClassName('dynamic');
-    nextSel.disabled = true;
-    let delLen = dels.length;
-    for (d = 0; d < delLen; d++) {
-      dels[0].remove();
-    }
-    if (level == "client") {
-      let thirdSel = document.querySelector('#' + thirdLevel + "Sel");
-      let sels = thirdSel.getElementsByClassName('dynamic');
-      thirdSel.disabled = true;
-      let selLen = sels.length;
-      for (s = 0; s < selLen; s++) {
-        sels[0].remove();
-      }
-    }
-  }
   thisInput.focus();
   thisInput.addEventListener('change', function () {
     if (nextLevel == "done") {
@@ -287,32 +210,7 @@ function enableNextInput(level) {
   });
 }
 
-function addListeners(elemName) {
-  let elemID = elemName + "Sel";
-  document.getElementById(elemID).addEventListener('input', function () {
-    if (this.value == "new") {
-      enableNextInput(this.name);
-    } else if (elemName != "jobs") {
-      let nextName;
-      var theList;
-      if (this.name === "client") {
-        nextName = "projects";
-        theList = clients.filter(c => c.name == this.value)[0].projects;
-      } else if (this.name === "projects") {
-        let pjct = document.getElementById("clientSel").value;
-        let pjctList = clients.filter(c => c.name == pjct)[0].projects;
-        theList = pjctList.filter(p => p.name == this.value)[0].jobs;
-        nextName = "jobs";
-      }
-      popSelect(nextName, theList);
-    }
-    let myNew = document.getElementById(elemName + "New");
-    myNew.value="";
-    myNew.disabled=true;
-  });
-}
-
-/*document.getElementById('clientSel').addEventListener('input', function () {
+document.getElementById('clientSel').addEventListener('input', function () {
   if (this.value == "new") { ////////////////////////////
     enableNextInput("client");
   } else { //////////////////////////////
@@ -320,13 +218,13 @@ function addListeners(elemName) {
     //    console.log(theClient);
     popSelect("project", theClient);
   } ////////////////////////////////////
-});*/
+});
 
 
       //level, content
       //get selector value
       //if new enable project input addeventlistener change enable next input
-      //else populate next selector and add event listener
+      //else populate next selector and add event litener
       //if level != job recurse
       // if new function enable next input and add event listener
       // else populate next selector and enable it

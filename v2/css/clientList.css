@@ -1,0 +1,16 @@
+* { margin:0, padding:0; box-sizing: border-box; }
+html {  }
+body { font-size: 100%; font-family: arial, sans-serif; background-color: #777; }
+div.outer { background-color: #fff; width: 25rem; margin: 0 auto; padding: 1rem 2rem; }
+div.selectAndInput { margin-bottom: .5rem; padding-top: .2em; overflow: hidden; width: 20rem; height: 1.7rem; }
+div.select {width: 20rem; height: 1.5rem; }
+div.select select {width: 20rem; height: 1.4rem; font-size: 80%; line-height: 1em; background-color: #fff; z-index: 5; position: relative; }
+div.input {width: 20rem; height: 1.5rem; background-color: #fff; z-index: 6; position: relative; left: 20rem; top: -1.5rem; transition: all .5s ease-in-out; }
+div.input input {width: 17rem; height: 1.4rem; font-size: 80%; line-height: 1em; }
+div.input.slide {margin-left: -20rem; transition: all .5s ease-in-out; } 
+.unassigned {background-color:#ffe6f0; }
+.assigned { background-color: #dbffe7; }
+.inpAction { color: white; margin:0 0 0 .1rem; width:1.4rem; height: 1.4rem; border: none; border-radius: .3rem;}
+.inpAction.save { background-color: green;}
+.inpAction.cancel { background-color: red; }
+#selects

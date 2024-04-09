@@ -1,0 +1,144 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif"
+}
+.dbContainer {
+  padding: 12px;
+  margin: 6px 0;
+}
+.dbContainer button, .dbContainer p {
+  padding: 4px 0;
+}
+.dbContainer button {
+  margin: 6px 0 0 0;
+}
+.dbContainer p {
+  margin: 0 0 6px 0;
+}
+
+/*ul.tree#tree1 {
+  
+  
+}
+
+li.branches {
+  
+  list-style-image: url("img/expander-arrow.png");
+}
+
+*/
+div.treeWork {
+  background-color: yellow;
+  padding: 12px;
+  margin: 6px 24px;
+}
+h2, h2, h3 {
+  display: inline-block;
+  font-weight: bold;
+  /*background-color: rgba(127, 127, 127, .5);*/
+}
+h1:before, h2:before, .projectName:before {
+  content: url("img/expander-arrow.png");
+  display: inline-block;
+  background-color: lightyellow;
+}
+h1:before {
+  padding:0;
+  height:26px;
+  width:26px;
+  text-align: center;
+}
+h2:before {
+  padding:0;
+  height:22px;
+  width:22px;
+  text-align: center;
+}
+.projectName:before {
+  padding:0;
+  height:19px;
+  width:19px;
+  text-align: center;
+}
+h1:hover:before {
+transform:rotate(90deg);
+transform-origin: 13px 13px;
+transition:.25s;
+}
+h2:hover:before {
+transform:rotate(90deg);
+transform-origin: 11px 11px;
+transition:.25s;
+}
+.projectName:hover:before {
+transform:rotate(90deg);
+transform-origin: 9px 9px;
+transition:.25s;
+}
+h1 {
+  font-size: 1.4em;
+  margin: 0;
+  padding: 0;
+  height:26px;
+}
+h2 {
+  font-size: 1.2em;
+  margin: 0;
+  padding: 0;
+  height: 22px;
+}
+h3 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+..projectName {
+  height: 19px;
+}
+.listLev1, .listLev2, .listLev3 {
+  list-style-type: none;
+  margin-top: 0;
+}
+.listLev1 {
+  margin-left:0;
+  /*background-color: green;*/
+  padding-left:12px;
+}
+.listLev1 li {
+  margin-left:0;
+  /*background-color: lightgreen;*/
+}
+.listLev2 {
+  margin-left:0;
+  /*background-color: red;*/
+  padding-left:1em;
+}
+.listLev2 li {
+  margin-left:0;
+  /*background-color: pink;*/
+}
+.listLev3 {
+  margin-left:0;
+  /*background-color: blue;*/
+  padding-left:1em;
+}
+.listLev3 li {
+  margin-left:0;
+  /*background-color: lightblue;*/
+}
+/*li.branchesLi {
+list-style-type:none;
+padding-left:20px;
+}
+h2:before {
+content:url("img/expander-arrow.png");
+  transform:rotate(90deg);
+margin-left:-20px;
+display:inline-block;
+}
+h2:hover:before {
+transform:rotate(180deg);
+transition:.75s;
+}*/

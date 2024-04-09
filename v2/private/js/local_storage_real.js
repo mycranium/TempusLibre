@@ -55,14 +55,14 @@ function setupInterface(state) {
     pio.clientTxt.value = "";
     pio.projectTxt.value = "";
     pio.jobTxt.value = "";
-    enableDisablePunchButtons("out");
+    enableDisablePunchButtons("out"); //?/?/ Wy call this twice?
   } else if (state == "in" || state == "assign") { // Enable/disable UI elements for punched IN condition
     enableDisablePunchButtons("in");
     displayAssignFields(data.lastPunch());
   }
 }
 
-function enableDisablePunchButtons(state) {
+function enableDisablePunchButtons(state) { //!/!/ Maybe use toggle here for simplicity
   pio.inBtn.disabled = (state == "in") ? true : false;
   pio.inBtn.style.cursor = (state == "in") ? "not-allowed" : "pointer";
   pio.outBtn.disabled = (state == "in") ? false : true;
