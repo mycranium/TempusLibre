@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+* { margin:0; padding:0; box-sizing: border-box; }
+html { } 
+body { font-size: 100%; font-family: arial, sans-serif; background-color: #777; }
+div.outer { background-color: #fff; width: 25rem; margin: 0 auto; padding: 1rem 2rem; transition: background-color .5s linear; }
+div.outer.dim { background-color: #ccc; transition: background-color .5s linear;  }
+div.select_wrap { width: 20rem; height: 3rem; position: relative; background-color: inherit; transition: background-color .5s linear; }
+div.module { margin-bottom: 0; padding: 0; background-color: inherit; /*overflow: hidden;*/ width: 20rem; /*height: 4rem;*/ position: relative; }
+label.select_label {font-weighy: bold; font-size: 80%; height: .8rem; }
+select.selector { width: 20rem; height: 1.7em; font-size: 90%; line-height: 1em; border: 1px solid black; background-color: inherit; z-index: 5; position: relative; transition: background-color .5s linear; }
+div.panel { display:flex; flex-flow: column nowrap; width: 20rem; height: 4rem; padding: .3rem; background-color: #fff; box-shadow: 3px 3px 8px 2px rgb(0,0,0,.5); border-radius: .4rem; z-index: 0; position: absolute; top: 0; opacity: 0; transition: opacity .5s linear; }
+div.panel.in { top: 0; opacity: 1; transition: opacity .5s linear; }
+div.panel.over {z-index: 6; }
+div.input_wrap { margin-bottom: .2rem; }
+input.input_text_new { background-color: #fff; width: 100%; height: 1.5rem; font-size: 80%; line-height: 1rem; margin: 0; border: 1px solid black; }
+ul.settings_list { display: flex; flex-flow: row nowrap; justify-content: center; list-style-type: none; gap: .5rem; margin: .2rem 0 0; padding: 0; }
+ul.settings_list li { display: flex; flex-flow: row nowrap; flex: 1 1 auto; align-self: stretch; width: 33.3%; }
+button.input_btn { self-align: stretch; width: 100%; font-weight: bold; color: white; margin:0; padding:0; height: 1.5rem; border: none; }
+button.input_btn.save, button.input_btn.yes { background-color: #0a0; }
+button.input_btn.cancel, button.input_btn.no  { background-color: #c00; }
+button.input_btn.save[disabled] { background-color: #aaa; }
+div.exc_wrap { display: flex; flex-flow: row nowrap; justify-content: center; flex: 1 1 auto; align-self: stretch; width: 100%; margin: 0; background-color: #35e; padding:0; align-items: center; }
+.exc_wrap label { color: #FFF; font-weight: bold; display: flex; cursor: pointer; position: relative; margin-right: 0; font-size: 80%; }
+.exc_wrap label::before { content: ""; display: inline-block; width: 1rem; height: 1rem; margin-right: .5rem; align-self: center; background-color: #eef; border-radius: 3px; }
+.exc_wrap input[type=checkbox] { display: none; }
+.exc_wrap input[type=checkbox]:checked + label::before { content: "\2713"; text-shadow: 1px 1px 1px rgba(0, 0, 0, .2); font-size: 1rem; color: #23f; text-align: center; line-height: 1rem; }
+/* assign button area */
+div#assign_wrap.effects { background-color: inherit; height: 4rem; width: 100%; /*overflow: hidden;*/ position: relative; transition: background-color .5s linear; }
+div#assign_btn_container {background-color: inherit; height: 4rem; position: relative; z-index: 5; transition: background-color .5s linear; }
+div#warning_panel.message.over { z-index: 10; }
+div#warning_panel.message.in { opacity: 1; transition: opacity .5s linear; }
+div#warning_panel.message { width: 100%; height: 4rem; padding: .3rem; background-color: #eee; box-shadow: 3px 3px 8px 2px rgb(0,0,0,.5); border-radius: .4rem; position: absolute; top: 0; opacity: 0; z-index: 0; transition: opacity .5s linear; }
+p#unspec_warn {font-size: 80%; margin:0; padding: 0;}
+.assigned { background-color: #eaffea; }
+.unassigned { background-color: #ffeaea; }
+.more { background-color: #daeaff; }

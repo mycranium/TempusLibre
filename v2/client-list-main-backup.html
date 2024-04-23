@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/client-list-main.css" >
+<title>Client Project Jobs Adder New Animations</title>
+  <script src="private/js/test-data.js" defer></script>
+  <script src="private/js/client-list-main.js" defer></script>
+</head>
+
+<body>
+<div id="selectsContainer" class="outer">
+<!--client --> 
+  <div id="client_module" class="module">
+    <div id="client_select_wrap" class="select_wrap">
+    <label class="select_label" for="client_selector">Select or Add Client</label>
+      <select id="client_selector" class="selector" name="client" autocomplete="off">
+        <option id="client_opt_unspec" class="unspec" value="0" selected>Unspecified</option>
+        <option id="client_opt_new" class="opt_new" value="-1">Add New Client</option>
+      </select>
+    </div>
+    <div id="client_panel" class="panel"><!--flex row -->
+      <div class="input_wrap"><!-- first column -->
+        <input id="client_inp_new" class="input_text_new" type="text" maxlength="200" placeholder="Type Client Name Here" autocomplete="off" disabled>
+      </div>
+      <div class="settings_wrap"><!-- second column, flex column -->
+        <ul class="settings_list">
+          <li>
+            <button id="client_save" class="input_btn save" type="button" disabled>Save</button>
+          </li>
+          <li>
+            <button id="client_cancel" class="input_btn cancel" type="button">Canccel</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    <!--project-->
+  <div id="project_module" class="module">
+    <div id="project_select_wrap" class="select_wrap">
+      <label class="select_label" for="project_selector">Select or Add Project</label>
+      <select id="project_selector" class="selector" name="project" autocomplete="off">
+        <option id="project_opt_unspec" class="unspec" value="0" selected>Unspecified</option>
+        <option id="project_opt_new" class="opt_new" value="-1">Add New Project</option>
+        <option id="project_opt_more" class="more" value="more">more...</option>
+      </select>
+    </div>
+    <div id="project_panel" class="panel"><!--flex row -->
+      <div class="input_wrap"><!-- first column -->
+        <input id="project_inp_new" class="input_text_new" type="text" maxlength="200" placeholder="Type Project Name Here" autocomplete="off" disabled>
+      </div>
+      <div class="settings_wrap"><!-- second column, flex column -->
+        <ul class="settings_list">
+          <li>
+            <div class="exc_wrap">
+              <input id="project_chk" class="exc_chk" type="checkbox" name="project_chk" checked autocomplete="off" />
+              <label class="custom_chk" for="project_chk">Exclusive</label>
+            </div>
+          </li>
+          <li>
+            <button id="project_save" class="input_btn save" type="button" disabled>Save</button>
+          </li>
+          <li>
+            <button id="project_cancel" class="input_btn cancel" type="button">Cancel</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<!--job--> 
+  <div id="job_module" class="module">
+    <div id="job_select_wrap" class="select_wrap">
+      <label class="select_label" for="job_selector">Select or Add Job</label>
+      <select id="job_selector" class="selector" name="job" autocomplete="off">
+        <option id="job_opt_unspec" class="unspec" value="0" selected>Unspecified</option>
+        <option id="job_opt_new" class="opt_new" value="-1">Add New Job</option>
+        <option id="job_opt_more" class="more" value="more">more...</option>
+      </select>
+    </div>
+    <div id="job_panel" class="panel"><!--flex row -->
+      <div class="input_wrap"><!-- first column -->
+        <input id="job_inp_new" class="input_text_new" type="text" maxlength="200" placeholder="Type Job Name Here" autocomplete="off" disabled>
+      </div>
+      <div class="settings_wrap"><!-- second column, flex column -->
+        <ul class="settings_list">
+          <li>
+            <div class="exc_wrap">
+              <input id="job_chk" class="exc_chk" type="checkbox" name="job_chk" checked autocomplete="off" />
+              <label class="custom_chk" for="job_chk">Exclusive</label>
+            </div>
+          </li>
+          <li>
+            <button id="job_save" class="input_btn save" type="button" disabled>Save</button>
+          </li>
+          <li>
+            <button id="job_cancel" class="input_btn cancel" type="button">Cancel</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="assign_wrap" class="effects">
+    <div id="assign_btn_container">
+      <button id="assign" class="general" type="button">Assign</button>
+    </div>
+    <div id="warning_panel" class="message">
+      <p id="unspec_warn" class="warn"></p>
+      <ul class="settings_list">
+        <li><button id="alert_yes" class="input_btn yes" type="button">Yes</button></li>
+        <li><button id="alert_no" class="input_btn no" type="button">No</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
