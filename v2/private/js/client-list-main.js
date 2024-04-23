@@ -28,11 +28,6 @@ const eTargs = {
 }
 
 function getDB() { // CONNECTOR
-  //
-  //
-  //
-  //
-  //
   const keyArr = ["clients", "projects", "jobs", "connector"];
   let msg = [];
   let obj = {};
@@ -44,7 +39,7 @@ function getDB() { // CONNECTOR
       msg.push(key)
     }
   }
-  if (msg.length === 5) {
+  if (msg.length === 4) {
     return false;
   } else {
     if (msg.length != 0) {
@@ -125,19 +120,35 @@ function enableNewEntry(level) {
   cxl.addEventListener('click', handleSavCxlEvt);
 }
 
-function assignConnector() {
+function assignConnector(assign=true) {
   let obj = {};
   let conn = accessData('connector', 'get');
   obj.clientId = parseInt(eTargs.cSel.value);
   obj.projectId = parseInt(eTargs.pSel.value);
-  obj.jobId = parseInt(eTargs.jSel.value);
-  if (!conn.find((el) => JSON.stringify(el) == JSON.stringify(obj))) {
-    conn.push(obj);
-    accessData('connector', 'set', conn);
+  let jobVal = parseInt(eTargs.jSel.value);
+  if (!assign) { // project is being added, no chain to job
+    obj.jobId = null;
+    if (!conn.find((el) => JSON.stringify(el) == JSON.stringify(obj))) { // If cli-proj conn doesn't exist, add it
+      conn.push(obj);
+    }
+  } else {
+    // if it's job, full chain or if assign button, full chain
+    obj.jobId = jobVal; // add job val to obj.jobId
+    if (!conn.find((el) => JSON.stringify(el) == JSON.stringify(obj))) { // If cli-proj-job conn doesn't exist, check for cli-proj-null
+      obj.jobId = null; // set jobId to check for null
+      let idx = conn.findIndex((el) => JSON.stringify(el) == JSON.stringify(obj));
+      if (idx >= 0) { // If it finds it, update jobId value
+       conn[idx].jobId = jobVal;
+      } else {
+        obj.jobId = jobVal;
+        conn.push(obj);
+      }
+    }
   }
+  accessData('connector', 'set', conn);
 }
 
-function addNewEntry(level, val, exclusive = true) { // CONNECTOR val is text input value
+function addNewEntry(level, val, exclusive = true) {
   let mcl = getDB();
   let newId = 0;
   let key = level + "s";
@@ -151,38 +162,36 @@ function addNewEntry(level, val, exclusive = true) { // CONNECTOR val is text in
 }
 
 function getList(level, range=true) { // CONNECTOR
-  let mcl = getDB();
-  let sel, upVal, srcList, connList;
-  let iNums = [];
-  let iCon = [];
+  let mcl = getDB(); // load client/project/job data into object
+  let sel, upVal, srcList, connList; // sel proj or jobs selector; upVal = value of parent selector; srcList = this level's mcl list; connList = upLevel's connector
+  let iNums = []; // list of thisLevel's Ids assigned to (or NOT assigned to) upLevel
+  let iCon = []; // filtered list of connector elements
   let iList = [];
-  let className = (range) ? "assigned" : "unassigned";
-  if (level == "client") {
+  let className = (range) ? "assigned" : "unassigned"; // for getting More and Less
+  if (level == "client") { // Populate Clients selector from mcl
     for (let client of mcl.clients) { eTargs.cSel.append(generateOptions(client)); }
     return;
-  } else if (level == "project") {
-    sel = eTargs.pSel;
-    upVal = eTargs.cSel.value;
-    srcList = mcl.projects;
-    connList = mcl.clientConnector;
-  } else {
-    sel = eTargs.jSel;
-    upVal = eTargs.pSel.value;
-    srcList = mcl.jobs;
-    connList = mcl.projectConnector;
+  } else { // set up variables to get correct level's list for upLevel's selector value
+    sel = (level == "project") ? eTargs.pSel : eTargs.jSel; //thisLevel selector
+    upVal = (level == "project") ? eTargs.cSel.value : eTargs.pSel.value; // upLevel's selctor value
+    srcList = (level == "project") ? mcl.projects : mcl.jobs; // thisLevel's list from mcl
+    connList = mcl.connector; 
   }
-  if (range) {
-    clearOptions(level, true);
-    iCon = connList.filter(item => ((level == "project") ? item.clientId : item.projectId) == upVal);
-  } else {
-    clearOptions(level, false);
-    iCon = connList.filter(item => ((level == "project") ? item.clientId : item.projectId) != upVal);
+  if (range) { // if looking for items assigned to upVal
+    clearOptions(level, true); // first clear thisLevel's selector options
+    if (level == "project") { 
+      clearOptions("job", true);
+    }
+    iCon = connList.filter(item => ((level == "project") ? item.clientId : item.projectId) == upVal); // get array of itmes assigned to upval
+  } else { // if looking for items NOT assigned to upVal
+    clearOptions(level, false);  // first clear thisLevel's selector options
+    iCon = connList.filter(item => ((level == "project") ? item.clientId : item.projectId) != upVal); // get array of itmes NOT assigned to upval
   }
-  for (let i of iCon) {iNums.push((level == "project") ? i.projectId : i.jobId);}
-  if (range) { iList = srcList.filter(src => iNums.includes(src.id) && src.id != 0); }
-  else { iList = srcList.filter(src => iNums.includes(src.id) && src.id != 0 && !src.exc); }
-  for (let item of iList) {sel.append(generateOptions(item, false, className));}
-  sel.selectedIndex = 0;
+  for (let i of iCon) {iNums.push((level == "project") ? i.projectId : i.jobId);} // push relevant Ids from filtered connector list to array
+  if (range) { iList = srcList.filter(src => iNums.includes(src.id) && src.id != 0); } // created filtered array of thisLevel elements matching upLevel
+  else { iList = srcList.filter(src => iNums.includes(src.id) && src.id != 0 && !src.exc); } // created filtered array of thisLevel elements NOT matching upLevel and NOT exclusive
+  for (let item of iList) {sel.append(generateOptions(item, false, className));} // append options to thisLevel selector
+  sel.selectedIndex = 0; // Set selector to default
 }
 
 function clearOptions(level, range=true) {
@@ -236,21 +245,14 @@ function assignSecondaryEvtHandler(e) {
   let msg = eTargs.assignPnl.querySelector('p');
   if (action) {
     assignConnector();
-    for (let btn of asgnBtns) {
-      btn.removeEventListener('click', assignSecondaryEvtHandler);
-    }
-  } else {
-    //clear box
-    animatePanels("warning", "out");
-    
-    for (let btn of asgnBtns) {
-      btn.removeEventListener('click', assignSecondaryEvtHandler);
-    }
-    sleep(500).then(() => {
-      msg.innerHTML = "";
-      
-    });
   }
+  animatePanels("warning", "out");
+  for (let btn of asgnBtns) {
+    btn.removeEventListener('click', assignSecondaryEvtHandler);
+  }
+  sleep(500).then(() => {
+    msg.innerHTML = "";
+  });
 }
 
 function assignEvtHandler() {
@@ -260,6 +262,10 @@ function assignEvtHandler() {
     if (eTargs.sels[s].value == 0) {
       u[u.length] = toTitleCase(eTargs.sels[s].id.split("_")[0]);
     }
+  }
+  if (u.length === 0) {
+    assignConnector();
+    return true;
   }
   if (u.length === 1) {
     uFields = u[0];
@@ -283,12 +289,7 @@ function assignEvtHandler() {
   });
 }
 
-function handleSavCxlEvt(e) {
-  // thisLevel = level;
-  // uplevel = false
-  // if level != client
-  //// uplevel = lvel == project? client : project
-  
+function handleSavCxlEvt(e) {  
   let level = e.target.id.split("_")[0];
   let type = e.target.id.split("_")[1];
   let sel = document.getElementById(level + "_selector");
@@ -311,7 +312,9 @@ function handleSavCxlEvt(e) {
     }
     let newId = addNewEntry(level, newVal, exc);
     sel.append(generateOptions({id: newId, name: newVal}, true));
-    // just do this again for downstream selects???
+    if (level != 'client') {
+      assignConnector((level == "project") ? false : true);
+    }
   }
   animatePanels(level, "out");
   sleep(500).then(() => {

@@ -20,6 +20,7 @@ function makeButton(kind) {
 //}
 
 function setEvtHandler() {
+  localStorage.clear();
   for (const [key, value] of Object.entries(myData)) {
     localStorage.setItem(key, JSON.stringify(value));
   }
