@@ -27,6 +27,25 @@ const eTargs = {
   assignPar: document.getElementById("unspec_warn")
 }
 
+/* UTILITY FUNCTIONS ---------------------------------------------- */
+/* UTILITY FUNCTIONS ---------------------------------------------- */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function toTitleCase(string) {
+  let str = string.toLowerCase();
+  let spl = str.split(" ");
+  let nStr = "";
+  for ( let i=0; i<spl.length; i++) {
+    nStr += spl[i][0].toUpperCase() + spl[i].substring(1);
+    if (i < spl.length - 1) {nStr += " ";} 
+  }
+  return nStr;
+}
+
+/* DATABASE FUNCTIONS --------------------------------------------- */
+/* DATABASE FUNCTIONS --------------------------------------------- */
 function getDB() { // CONNECTOR
   const keyArr = ["clients", "projects", "jobs", "connector"];
   let msg = [];
@@ -58,66 +77,6 @@ function accessData(key, action, data="") {
   } else {
     return false;
   }
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function toTitleCase(string) {
-  let str = string.toLowerCase();
-  let spl = str.split(" ");
-  let nStr = "";
-  for ( let i=0; i<spl.length; i++) {
-    nStr += spl[i][0].toUpperCase() + spl[i].substring(1);
-    if (i < spl.length - 1) {nStr += " ";} 
-  }
-  return nStr;
-}
-
-function makeNewId(arr) {
-  let max = 0;
-  for (let n=0; n<arr.length; n++) {
-    if (arr[n].id > max) { max = arr[n].id; }
-  }
-  return (arr.length > max) ? arr.length : max + 1;
-}
-
-function animatePanels(level, dir="in") { // generalize to include warnings
-  let panel = document.getElementById(level + "_panel");
-  let wrap = eTargs.wrap;
-  let asgnDis = (eTargs.assignBtn.hasAttribute('disabled')) ? true : false;
-  if (dir == "in") {
-    for (let sel of eTargs.sels) {
-      sel.setAttribute('disabled', 'true');
-    }
-    panel.classList.add('over');
-    wrap.classList.add("dim");
-    panel.classList.add('in');
-    if (!asgnDis) {eTargs.assignBtn.setAttribute('disabled', 'true');}
-  } else {
-    panel.classList.remove('in');
-    wrap.classList.remove("dim");
-    for (let sel of eTargs.sels) {
-      sel.removeAttribute('disabled');
-    }
-    if (asgnDis) {eTargs.assignBtn.removeAttribute('disabled');}
-    sleep(500).then(() => {
-      panel.classList.remove('over');
-    });
-  }
-}
-
-function enableNewEntry(level) {
-  animatePanels(level, "in");
-  let sav = document.getElementById(level + "_save");
-  let cxl = document.getElementById(level + "_cancel");
-  let inp = document.getElementById(level + "_inp_new");
-  inp.setAttribute('required', 'true');
-  inp.removeAttribute('disabled');
-  inp.addEventListener('input', inputEvtHandler);
-  sav.addEventListener('click', handleSavCxlEvt);
-  cxl.addEventListener('click', handleSavCxlEvt);
 }
 
 function assignConnector(assign=true) {
@@ -161,6 +120,16 @@ function addNewEntry(level, val, exclusive = true) {
   return newId;
 }
 
+function makeNewId(arr) {
+  let max = 0;
+  for (let n=0; n<arr.length; n++) {
+    if (arr[n].id > max) { max = arr[n].id; }
+  }
+  return (arr.length > max) ? arr.length : max + 1;
+}
+
+/* PAGE SETUP FUNCTIONS ------------------------------------------- */
+/* PAGE SETUP FUNCTIONS ------------------------------------------- */
 function getList(level, range=true) { // CONNECTOR
   let mcl = getDB(); // load client/project/job data into object
   let sel, upVal, srcList, connList; // sel proj or jobs selector; upVal = value of parent selector; srcList = this level's mcl list; connList = upLevel's connector
@@ -234,6 +203,54 @@ function generateOptions(item, selected = false, className = "") {
   return newOpt;
 }
 
+function disableAssign(disable=true) {
+  let sel;
+  if (disable) {
+    for (sel of eTargs.sels) {
+      sel.setAttribute('disabled', true);
+    }
+    eTargs.assignBtn.setAttribute('disabled', true);
+  } else {
+    for (sel of eTargs.sels) {
+      sel.removeAttribute('disabled');
+    }
+    eTargs.assignBtn.removeAttribute('disabled');
+  }
+}
+
+/* ANIMATION/REVEAL FUNCTIONS ------------------------------------- */
+/* ANIMATION/REVEAL FUNCTIONS ------------------------------------- */
+function animatePanels(level, dir="in") { // generalize to include warnings
+  let panel = document.getElementById(level + "_panel");
+  let wrap = eTargs.wrap;
+  if (dir == "in") {
+    panel.classList.add('over');
+    wrap.classList.add("dim");
+    panel.classList.add('in');
+  } else {
+    panel.classList.remove('in');
+    wrap.classList.remove("dim");
+    sleep(180).then(() => {
+      panel.classList.remove('over');
+    });
+  }
+}
+
+function enableNewEntry(level) {
+  disableAssign(true);
+  animatePanels(level, "in");
+  let sav = document.getElementById(level + "_save");
+  let cxl = document.getElementById(level + "_cancel");
+  let inp = document.getElementById(level + "_inp_new");
+  inp.setAttribute('required', 'true');
+  inp.removeAttribute('disabled');
+  inp.addEventListener('input', inputEvtHandler);
+  sav.addEventListener('click', handleSavCxlEvt);
+  cxl.addEventListener('click', handleSavCxlEvt);
+}
+
+/* EVENT HANDLER FUNCTIONS ---------------------------------------- */
+/* EVENT HANDLER FUNCTIONS ---------------------------------------- */
 function inputEvtHandler(e)  {
   let btn = e.target.closest('.panel').querySelector('.input_btn.save');
   btn.removeAttribute('disabled');
@@ -245,18 +262,21 @@ function assignSecondaryEvtHandler(e) {
   let msg = eTargs.assignPnl.querySelector('p');
   if (action) {
     assignConnector();
+    disableAssign(true);
+  } else {
+    disableAssign(false);
   }
   animatePanels("warning", "out");
   for (let btn of asgnBtns) {
     btn.removeEventListener('click', assignSecondaryEvtHandler);
   }
-  sleep(500).then(() => {
+  sleep(180).then(() => {
     msg.innerHTML = "";
   });
 }
 
 function assignEvtHandler() {
-  let u = [];
+  let u = []; // u stands for unspecified items
   let uFields, verb;
   for (let s=0; s<eTargs.sels.length; s++) {
     if (eTargs.sels[s].value == 0) {
@@ -265,6 +285,7 @@ function assignEvtHandler() {
   }
   if (u.length === 0) {
     assignConnector();
+    disableAssign(true);
     return true;
   }
   if (u.length === 1) {
@@ -281,11 +302,12 @@ function assignEvtHandler() {
   let newTxt = document.createTextNode(msg);
   eTargs.assignPar.append(newTxt);
   sleep(100).then(() => {
-  animatePanels("warning", "in");
-  let asgnBtns = eTargs.assignPnl.querySelectorAll('.input_btn');
-  for (let btn of asgnBtns) {
-    btn.addEventListener('click', assignSecondaryEvtHandler);
-  }
+    disableAssign(true);
+    animatePanels("warning", "in");
+    let asgnBtns = eTargs.assignPnl.querySelectorAll('.input_btn');
+    for (let btn of asgnBtns) {
+      btn.addEventListener('click', assignSecondaryEvtHandler);
+    }
   });
 }
 
@@ -316,8 +338,9 @@ function handleSavCxlEvt(e) {
       assignConnector((level == "project") ? false : true);
     }
   }
+  disableAssign(false);
   animatePanels(level, "out");
-  sleep(500).then(() => {
+  sleep(180).then(() => {
     newInp.removeAttribute("required");
     newInp.value = "";
     if (level != "client") {
